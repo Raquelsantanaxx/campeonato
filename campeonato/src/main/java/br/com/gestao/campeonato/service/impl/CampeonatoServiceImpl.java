@@ -2,6 +2,8 @@ package br.com.gestao.campeonato.service.impl;
 
 import br.com.gestao.campeonato.entity.Campeonato;
 import br.com.gestao.campeonato.repository.CampeonatoRepository;
+import br.com.gestao.campeonato.repository.PartidaRepository;
+import br.com.gestao.campeonato.repository.SetPartidaRepository;
 import br.com.gestao.campeonato.service.CampeonatoService;
 import org.springframework.stereotype.Service;
 
@@ -32,6 +34,7 @@ public class CampeonatoServiceImpl implements CampeonatoService {
     public List<Campeonato> listarTodos() {
         return campeonatoRepository.findAll();
     }
+
     @Override
     public Campeonato atualizar(Integer id, Campeonato campeonato) {
 

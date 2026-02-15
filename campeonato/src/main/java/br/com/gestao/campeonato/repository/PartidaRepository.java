@@ -11,4 +11,5 @@ public interface PartidaRepository extends JpaRepository<Partida, Integer> {
 
     List<Partida> findByEquipeMandante_IdOrEquipeVisitante_Id(Integer mandanteId, Integer visitanteId);
 
+
 }

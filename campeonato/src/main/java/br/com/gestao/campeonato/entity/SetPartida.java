@@ -24,7 +24,7 @@ public class SetPartida {
     @JoinColumn(name = "id_partida", nullable = false)
     private Partida partida;
 
-    @Column(name = "numero_Set", nullable = false)
+    @Column(name = "numero_set", nullable = false)
     private Integer numeroSet;
 
     @Column(name = "pontos_mandante", nullable = false)

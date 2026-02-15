@@ -1,9 +1,9 @@
 package br.com.gestao.campeonato.service;
 
+import br.com.gestao.campeonato.dto.ClassificacaoEquipeDTO;
 import br.com.gestao.campeonato.entity.Campeonato;
 
 import java.util.List;
-import java.util.Optional;
 
 public interface CampeonatoService {
 

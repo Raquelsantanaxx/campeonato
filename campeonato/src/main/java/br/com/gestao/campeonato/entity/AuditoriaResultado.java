@@ -2,9 +2,16 @@ package br.com.gestao.campeonato.entity;
 
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.time.LocalDateTime;
-
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @Table(name = "auditoria_resultado")
 public class AuditoriaResultado {
@@ -25,7 +32,7 @@ public class AuditoriaResultado {
     @Column (name = "data_alteracao", nullable = false)
     private LocalDateTime dataHora;
 
-    @Column(nullable = false, length = 255)
+    @Column(name= "justificativa", nullable = false, length = 255)
     private String justificativa;
 
     @Column(name = "dados_anteriores", columnDefinition = "TEXT")

@@ -17,5 +17,9 @@ public interface PartidaService {
     List<Partida> buscarPorCampeonato(Integer idCampeonato);
 
     List<Partida> buscarPorEquipe(Integer idEquipe);
+
+    Partida atualizarResultadoManual(Integer partidaId,
+                                     String novoResultado,
+                                     Integer usuarioId);
 }
 

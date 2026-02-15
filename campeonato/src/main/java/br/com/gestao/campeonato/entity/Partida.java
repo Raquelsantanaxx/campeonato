@@ -32,7 +32,7 @@ public class Partida {
     @JoinColumn(name = "id_equipe_visitante", nullable = false)
     private Equipe equipeVisitante;
 
-    @Column(name = "data_hora", nullable = false)
+    @Column(name = "data_hora", nullable =false)
     private LocalDateTime dataHora;
 
     @Column(length = 150)
