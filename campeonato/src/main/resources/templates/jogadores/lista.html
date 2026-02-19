@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{base :: layout(~{::section})}">
+
+<section>
+    <link rel="stylesheet" th:href="@{/css/jogadores-lista.css}">
+    <div class="container">
+
+        <div class="topo">
+            <h2>Jogadores</h2>
+            <a href="/jogadores/novo" class="btn-novo">
+                + Novo Jogador
+            </a>
+        </div>
+
+        <table>
+            <thead>
+            <tr>
+                <th>Nome</th>
+                <th>Número</th>
+                <th>Posição</th>
+                <th>Equipe</th>
+            </tr>
+            </thead>
+
+            <tbody>
+            <tr th:each="j : ${jogadores}">
+                <td th:text="${j.nome}"></td>
+                <td th:text="${j.numeroCamisa}"></td>
+                <td th:text="${j.posicao}"></td>
+                <td th:text="${j.equipe.nome}"></td>
+            </tr>
+            </tbody>
+        </table>
+
+    </div>
+
+</section>
+</html>

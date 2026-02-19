@@ -1,0 +1,41 @@
+.container-form {
+    width: 500px;
+    margin: 40px auto;
+    padding: 20px;
+    background: #fff;
+    border-radius: 8px;
+}
+
+.campo {
+    margin-bottom: 15px;
+    display: flex;
+    flex-direction: column;
+}
+
+.campo input,
+.campo select {
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.botoes {
+    display: flex;
+    gap: 10px;
+}
+
+.btn-salvar {
+    background: #ff6a00;
+    border: none;
+    padding: 10px 15px;
+    color: white;
+    cursor: pointer;
+}
+
+.btn-cancelar {
+    background: gray;
+    padding: 10px 15px;
+    color: white;
+    text-decoration: none;
+}
+

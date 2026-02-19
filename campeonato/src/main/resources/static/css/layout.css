@@ -1,0 +1,70 @@
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #f4f6f9;
+}
+
+/* ===== HEADER / TOPO ===== */
+.header {
+    background: #ffffff;
+    padding: 15px 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #ddd;
+}
+
+/* ===== LOGO ===== */
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 18px;
+    font-weight: bold;
+    color: #FF6B00;
+}
+
+.logo img {
+    width: 32px;
+    height: 32px;
+}
+
+/* ===== MENU HORIZONTAL ===== */
+.menu {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+/* LINKS DO MENU */
+.menu a {
+    text-decoration: none;
+    color: #333;
+    font-weight: bold;
+    padding: 8px 12px;
+    border-radius: 4px;
+    transition: all 0.2s ease;
+}
+
+/* HOVER */
+.menu a:hover {
+    color: #FF6B00;
+    background: #fff3e8;
+}
+
+/* ITEM ATIVO */
+.menu a.ativo {
+    background: #FF6B00;
+    color: #ffffff;
+}
+
+/* BOTÃO SAIR */
+.menu a.sair {
+    background: #f1f1f1;
+}
+
+/* ===== CONTEÚDO ===== */
+.conteudo {
+    padding: 30px;
+}
+

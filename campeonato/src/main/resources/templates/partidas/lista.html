@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{base :: layout(~{::section})}">
+
+<section class="partidas-page">
+
+    <div class="card-container">
+
+        <!-- TOPO -->
+        <div class="topo-lista">
+            <div>
+                <h2>Partidas</h2>
+                <p class="subtitulo">Gerencie as partidas do campeonato</p>
+            </div>
+
+            <a th:href="@{/partidas/nova}" class="btn-novo">
+                + Nova Partida
+            </a>
+        </div>
+
+        <!-- TABELA -->
+        <table class="tabela-partidas">
+
+            <thead>
+            <tr>
+                <th>Data</th>
+                <th>Mandante</th>
+                <th>Resultado</th>
+                <th>Visitante</th>
+                <th>Status</th>
+                <th class="acoes-tabela">Ações</th>
+            </tr>
+            </thead>
+
+            <tbody>
+            <tr th:each="p : ${partidas}">
+
+                <td th:text="${#temporals.format(p.dataHora,'dd/MM/yyyy HH:mm')}"></td>
+
+                <td th:text="${p.equipeMandante.nome}"></td>
+
+                <td th:text="${p.resultadoFinal != null ? p.resultadoFinal : 'x'}"></td>
+
+                <td th:text="${p.equipeVisitante.nome}"></td>
+
+                <td>
+                    <span class="status"
+                          th:text="${p.finalizada} ? 'Finalizada' : 'Agendada'"
+                          th:classappend="${p.finalizada} ? ' status-ativo' : ' status-inativo'">
+                    </span>
+                </td>
+
+                <td class="acoes-tabela">
+                    <a th:href="@{/partidas/editar/{id}(id=${p.id})}"
+                       class="btn-acao btn-editar">Editar</a>
+
+                    <a th:if="${!p.finalizada}"
+                       th:href="@{/partidas/finalizar/{id}(id=${p.id})}"
+                       class="btn-acao btn-excluir">
+                        Finalizar
+                    </a>
+
+
+            </tr>
+            </tbody>
+        </table>
+
+    </div>
+
+</section>
+</html>
+

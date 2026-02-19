@@ -1,4 +1,4 @@
-package br.com.gestao.campeonato.controller;
+package br.com.gestao.campeonato.controller.api;
 
 import br.com.gestao.campeonato.dto.AtualizarResultadoRequest;
 import br.com.gestao.campeonato.entity.Partida;
@@ -35,10 +35,11 @@ public class PartidaController {
 
     @GetMapping("/{id}")
     public ResponseEntity<Partida> buscarPorId(@PathVariable Integer id) {
-        return partidaService.buscarPorId(id)
-                .map(ResponseEntity::ok)
-                .orElse(ResponseEntity.notFound().build());
+        Partida partida = partidaService.buscarPorId(id);
+        return ResponseEntity.ok(partida);
     }
+
+
 
 
     @GetMapping("/campeonato/{idCampeonato}")

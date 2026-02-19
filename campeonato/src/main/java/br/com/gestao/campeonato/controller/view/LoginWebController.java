@@ -1,4 +1,4 @@
-package br.com.gestao.campeonato.controller;
+package br.com.gestao.campeonato.controller.view;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;

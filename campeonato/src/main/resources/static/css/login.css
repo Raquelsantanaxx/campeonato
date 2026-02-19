@@ -8,18 +8,69 @@ body {
     justify-content:center;
 }
 
+.main-content {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    width: 90%;
+    max-width: 1100px;
+    gap: 40px;
+}
+
+.hero-text {
+    max-width: 500px; /* Evita que o texto fique largo demais */
+    text-align: left; /* Alinhamento à esquerda igual ao modelo */
+}
+
+.hero-text h1 {
+    font-size: 48px; /* Tamanho grande de impacto */
+    font-weight: 800; /* Extra negrito */
+    font-weight: 800; /* Extra negrito */
+    line-height: 1.1; /* Espaçamento entre linhas mais justo */
+    color: #222; /* Cor quase preta para melhor leitura */
+    margin-bottom: 15px;
+    font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+}
+
+/* Estilo para destacar palavras específicas se desejar (opcional) */
+/* Exemplo: se quiser parte do texto em laranja igual à marca */
+.hero-text h1 span {
+    color: #ff6b00;
+}
+
+.hero-text p {
+    font-size: 18px;
+    color: #666; /* Cinza médio para o subtítulo */
+    margin: 0;
+    font-weight: 400;
+}
+
 .login-card{
     background:white;
     padding:40px;
     width:320px;
     border-radius:12px;
-    box-shadow:0 10px 30px rgba(0,0,0,0.2);
+    box-shadow:0 15px 30px rgba(0,0,0,0.2);
     text-align:center;
 }
+.logo {
+    background: linear-gradient(135deg, #ff6b00, #ff2d00);
+    width: 60px;
+    height: 60px;
+    border-radius: 12px;
+    margin: 0 auto 20px auto; /* Centraliza horizontalmente e dá espaço embaixo */
 
-.logo img{
-    width:60px;
-    margin-bottom:20px;
+    /* Faz o troféu ficar bem no meio do quadrado laranja */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.logo img {
+    width: 35px;
+    height: auto;
+    content: url('../img/trofeu2.png');
+
 }
 
 input{
@@ -28,6 +79,7 @@ input{
     margin:10px 0;
     border-radius:8px;
     border:1px solid #ddd;
+    box-sizing: border-box;
 }
 
 button{
@@ -46,10 +98,18 @@ button:hover{
 }
 
 .remember{
-    display:flex;
-    align-items:center;
-    font-size:14px;
-    margin:10px 0;
+    display: flex;
+    align-items: center;
+    justify-content: center; /* Centraliza horizontalmente */
+    font-size: 14px;
+    margin: 15px 0;
+    cursor: pointer;
+    width: 100%;
+}
+.remember input {
+    width: auto;      /* Remove o 100% que estava empurrando o texto */
+    margin: 0 8px 0 0; /* Espaço apenas à direita, entre o box e o texto */
+    cursor: pointer;
 }
 
 .error{

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{base :: layout(~{::section})}">
+
+<section class="form-container">
+
+    <div class="form-card">
+
+        <div class="form-header">
+            <div>
+                <h2>Cadastrar Campeonato</h2>
+                <p class="subtitulo">Informe os dados do campeonato</p>
+            </div>
+
+            <a th:href="@{/campeonatos}" class="btn-voltar">← Voltar</a>
+        </div>
+
+        <form th:action="@{/campeonatos}"
+              th:object="${campeonato}"
+              method="post"
+              class="form">
+
+            <div class="campo">
+                <label>Nome do Campeonato</label>
+                <input type="text" th:field="*{nome}" required>
+            </div>
+
+            <div class="campo">
+                <label>Formato</label>
+                <input type="text" th:field="*{formato}" placeholder="Ex: Pontos Corridos">
+            </div>
+
+            <div class="linha">
+                <div class="campo">
+                    <label>Data Início</label>
+                    <input type="date" th:field="*{dataInicio}" required>
+                </div>
+
+                <div class="campo">
+                    <label>Data Fim</label>
+                    <input type="date" th:field="*{dataFim}">
+                </div>
+            </div>
+
+            <button type="submit" class="btn-salvar">
+                Salvar Campeonato
+            </button>
+
+        </form>
+
+    </div>
+
+</section>
+</html>
+
+

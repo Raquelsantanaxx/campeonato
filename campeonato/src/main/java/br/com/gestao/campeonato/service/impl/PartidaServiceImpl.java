@@ -42,9 +42,13 @@ public class PartidaServiceImpl implements PartidaService {
 
 
     @Override
-    public Optional<Partida> buscarPorId(Integer id) {
-        return partidaRepository.findById(id);
+    public Partida buscarPorId(Integer id){
+        return partidaRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Partida não encontrada"));
     }
+
+
+
 
     @Override
     public List<Partida> listarTodos() {

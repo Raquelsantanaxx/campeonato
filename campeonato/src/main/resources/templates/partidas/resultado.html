@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{base :: layout(~{::section})}">
+
+<section class="form-container">
+
+    <div class="form-card">
+
+        <div class="form-header">
+            <div>
+                <h2>Resultado da Partida</h2>
+                <p class="subtitulo"
+                   th:text="${partida.equipeMandante.nome + ' x ' + partida.equipeVisitante.nome}">
+                </p>
+            </div>
+
+            <a th:href="@{/partidas}" class="btn-voltar">← Voltar</a>
+        </div>
+
+        <form th:action="@{/partidas/{id}/resultado(id=${partida.id})}"
+              method="post"
+              class="form">
+
+            <div class="campo">
+                <label>Resultado Final</label>
+                <input type="text"
+                       name="resultado"
+                       placeholder="Ex: 3x1"
+                       required>
+            </div>
+
+            <button type="submit" class="btn-salvar">
+                Salvar Resultado
+            </button>
+
+        </form>
+
+    </div>
+
+</section>
+</html>
+
+
+
+
+

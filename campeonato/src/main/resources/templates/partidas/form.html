@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{base :: layout(~{::section})}">
+
+<section class="form-container">
+
+    <div class="form-card">
+
+        <div class="form-header">
+            <div>
+                <h2>Nova Partida</h2>
+                <p class="subtitulo">Cadastre uma nova partida</p>
+            </div>
+
+            <a th:href="@{/partidas}" class="btn-voltar">← Voltar</a>
+        </div>
+
+        <form th:action="@{/partidas}" method="post" class="form">
+
+            <div class="campo">
+                <label>Campeonato</label>
+                <select name="campeonato.id" required>
+                    <option value="">Selecione</option>
+                    <option th:each="c : ${campeonatos}"
+                            th:value="${c.id}"
+                            th:text="${c.nome}">
+                    </option>
+                </select>
+            </div>
+
+            <div class="linha">
+                <div class="campo">
+                    <label>Mandante</label>
+                    <select name="equipeMandante.id" required>
+                        <option value="">Selecione</option>
+                        <option th:each="e : ${equipes}"
+                                th:value="${e.id}"
+                                th:text="${e.nome}">
+                        </option>
+                    </select>
+                </div>
+
+                <div class="campo">
+                    <label>Visitante</label>
+                    <select name="equipeVisitante.id" required>
+                        <option value="">Selecione</option>
+                        <option th:each="e : ${equipes}"
+                                th:value="${e.id}"
+                                th:text="${e.nome}">
+                        </option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="campo">
+                <label>Data e Hora</label>
+                <input type="datetime-local" name="dataHora" required>
+            </div>
+
+            <div class="campo">
+                <label>Local</label>
+                <input type="text" name="local">
+            </div>
+
+            <button type="submit" class="btn-salvar">
+                Salvar Partida
+            </button>
+
+        </form>
+
+    </div>
+
+</section>
+</html>

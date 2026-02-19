@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
-@Table(name = "jogador ")
+@Table(name = "jogador")
 @Getter
 @Setter
 @NoArgsConstructor
@@ -20,7 +20,7 @@ public class Jogador {
 
     @ManyToOne
     @JoinColumn(name = "id_equipe", nullable = false)
-    private Jogador equipe;
+    private Equipe equipe;
 
     @Column(name = "nome",nullable = false, length = 100)
     private String nome;

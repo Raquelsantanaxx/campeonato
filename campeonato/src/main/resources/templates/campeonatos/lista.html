@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{base :: layout(~{::section})}">
+
+<section class="campeonatos-page">
+
+    <div class="card-container">
+
+        <!-- TOPO -->
+        <div class="topo-lista">
+            <div>
+                <h2>🏆 Campeonatos</h2>
+                <p class="subtitulo">Gerencie todos os campeonatos cadastrados</p>
+            </div>
+
+            <a th:href="@{/campeonatos/novo}" class="btn-novo">
+                + Novo Campeonato
+            </a>
+        </div>
+
+        <!-- GRID DE CARDS -->
+        <div class="grid-campeonatos">
+
+            <div th:each="camp : ${campeonatos}" class="card-campeonato">
+
+                <!-- TOPO DO CARD -->
+                <div class="card-topo">
+                    <h3 th:text="${camp.nome}">Nome do Campeonato</h3>
+
+                    <!-- AÇÕES (BOTÕES) -->
+                    <div class="acoes-campeonato">
+                        <a th:href="@{/campeonatos/editar/{id}(id=${camp.id})}"
+                           class="btn-acao btn-editar">
+                            Editar
+                        </a>
+
+                        <a th:href="@{/campeonatos/excluir/{id}(id=${camp.id})}"
+                           class="btn-acao btn-excluir">
+                            Excluir
+                        </a>
+                    </div>
+                </div>
+
+                <!-- INFORMAÇÕES -->
+                <div class="info">
+                    <p>
+                        <strong>Formato:</strong>
+                        <span th:text="${camp.formato}"></span>
+                    </p>
+
+                    <p>
+                        <strong>Datas:</strong>
+                        <span th:text="${camp.dataInicio}"></span>
+                        até
+                        <span th:text="${camp.dataFim}"></span>
+                    </p>
+                </div>
+
+                <!-- STATUS -->
+                <span class="status"
+                      th:text="${camp.ativo} ? 'Ativo' : 'Inativo'"
+                      th:classappend="${camp.ativo} ? ' status-ativo' : ' status-inativo'">
+                </span>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+</html>
+
+

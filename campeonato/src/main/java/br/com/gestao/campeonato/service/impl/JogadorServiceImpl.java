@@ -1,5 +1,4 @@
 package br.com.gestao.campeonato.service.impl;
-
 import br.com.gestao.campeonato.entity.Jogador;
 import br.com.gestao.campeonato.repository.JogadorRepository;
 import br.com.gestao.campeonato.service.JogadorService;
@@ -22,7 +21,6 @@ public class JogadorServiceImpl implements JogadorService {
     public Jogador salvar(Jogador jogador) {
         return jogadorRepository.save(jogador);
     }
-
 
     @Override
     public List<Jogador> listarTodos() {

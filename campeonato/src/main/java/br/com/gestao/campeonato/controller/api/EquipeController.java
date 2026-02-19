@@ -1,6 +1,5 @@
-package br.com.gestao.campeonato.controller;
+package br.com.gestao.campeonato.controller.api;
 
-import br.com.gestao.campeonato.entity.Campeonato;
 import br.com.gestao.campeonato.entity.Equipe;
 import br.com.gestao.campeonato.service.EquipeService;
 import org.springframework.http.ResponseEntity;
@@ -24,7 +23,6 @@ public class EquipeController {
         Equipe salva = equipeService.salvar(equipe);
         return ResponseEntity.ok(salva);
     }
-
     @GetMapping
     public ResponseEntity<List<Equipe>> listarTodos() {
         return ResponseEntity.ok(equipeService.listarTodos());
@@ -41,6 +39,8 @@ public class EquipeController {
         equipeService.deletar(id);
         return ResponseEntity.noContent().build();
     }
+
+
 }
 
 

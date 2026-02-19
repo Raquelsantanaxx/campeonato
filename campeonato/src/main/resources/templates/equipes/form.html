@@ -1,0 +1,66 @@
+<div xmlns:th="http://www.thymeleaf.org"
+     th:replace="~{base :: layout(~{::section})}">
+
+<section class="form-container">
+
+    <div class="form-card">
+
+        <div class="form-header">
+            <div>
+                <h2>Cadastrar Equipe</h2>
+                <p class="subtitulo">Preencha os dados da equipe</p>
+            </div>
+
+            <a th:href="@{/equipes}" class="btn-voltar">← Voltar</a>
+        </div>
+
+        <form th:action="@{/equipes}"
+              th:object="${equipe}"
+              method="post"
+              class="form">
+
+            <div class="campo">
+                <label>Nome da Equipe *</label>
+                <input type="text" th:field="*{nome}" required>
+            </div>
+
+            <div class="linha">
+                <div class="campo">
+                    <label>Sigla *</label>
+                    <input type="text" th:field="*{sigla}" maxlength="5" required>
+                </div>
+
+                <div class="campo">
+                    <label>Campeonato *</label>
+                    <select th:field="*{campeonato}" required>
+                        <option value="">Selecione...</option>
+                        <option th:each="camp : ${campeonatos}"
+                                th:value="${camp.id}"
+                                th:text="${camp.nome}">
+                        </option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="linha">
+                <div class="campo">
+                    <label>Cor Primária</label>
+                    <input type="color" th:field="*{corPrimaria}">
+                </div>
+
+                <div class="campo">
+                    <label>Cor Secundária</label>
+                    <input type="color" th:field="*{corSecundaria}">
+                </div>
+            </div>
+
+            <button type="submit" class="btn-salvar">
+                Salvar Equipe
+            </button>
+
+        </form>
+
+    </div>
+
+</section>
+</div>

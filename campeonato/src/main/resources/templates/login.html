@@ -1,49 +1,57 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Login</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Vôlei</title>
     <link rel="stylesheet" th:href="@{/css/login.css}">
 </head>
 <body>
 
-<div class="login-container">
+<div class="main-content">
 
-    <div class="login-card">
+    <div class="hero-text">
+        <h1>BoraVôlei </h1>
+        <h1>Plataforma de organização <br> de campeonato esportivo</h1>
+    </div>
 
-        <div class="logo">
-            <img src="/img/logo.png" alt="logo">
+    <div class="login-container">
+        <div class="login-card">
+
+            <div class="logo">
+                <div class="logo">
+                    <img th:src="@{/img/trofeu2.png}" alt="Logo Troféu">
+                </div>
+            </div>
+
+            <form th:action="@{/login}" method="post">
+
+                <h2>Entrar</h2>
+
+                <input type="text" name="username" placeholder="Email" required>
+
+                <input type="password" name="password" placeholder="Senha" required>
+
+                <label class="remember">
+                    <input type="checkbox" name="remember-me">
+                    Lembrar-me
+                </label>
+
+                <button type="submit">Entrar</button>
+
+                <p th:if="${param.error}" class="error">
+                    Usuário ou senha inválidos
+                </p>
+
+                <p th:if="${param.logout}" class="success">
+                    Logout realizado
+                </p>
+
+            </form>
         </div>
-
-        <form th:action="@{/login}" method="post">
-
-            <h2>Entrar</h2>
-
-            <input type="text" name="username" placeholder="Email" required>
-
-            <input type="password" name="password" placeholder="Senha" required>
-
-            <label class="remember">
-                <input type="checkbox" name="remember-me">
-                Lembrar-me
-            </label>
-
-            <button type="submit">Entrar</button>
-
-            <p th:if="${param.error}" class="error">
-                Usuário ou senha inválidos
-            </p>
-
-            <p th:if="${param.logout}" class="success">
-                Logout realizado
-            </p>
-
-        </form>
     </div>
 
 </div>
 
 </body>
 </html>
-
-
-

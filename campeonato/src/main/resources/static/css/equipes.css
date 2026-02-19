@@ -1,0 +1,131 @@
+/* ===== CONTAINER ===== */
+.lista-container {
+    width: 80%;
+    margin: 30px auto;
+}
+
+/* ===== HEADER ===== */
+.lista-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 25px;
+}
+
+.lista-header h2 {
+    margin: 0;
+}
+
+/* Subtítulo */
+.subtitulo {
+    font-size: 14px;
+    color: #777;
+    margin-top: 4px;
+}
+
+/* ===== BOTÃO NOVA EQUIPE ===== */
+.btn-nova-equipe {
+    background-color: #FF6B00;
+    padding: 10px 18px;
+    border-radius: 8px;
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+    transition: 0.2s;
+}
+
+.btn-nova-equipe:hover {
+    background-color: #e65c00;
+}
+
+/* ===== TABELA ===== */
+.tabela-equipes {
+    width: 100%;
+    border-collapse: collapse;
+    background: #fff;
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+/* Cabeçalho */
+.tabela-equipes th {
+    background: #FF6B00;
+    color: #fff;
+    padding: 14px;
+    text-align: left;
+}
+
+/* Corpo */
+.tabela-equipes td {
+    padding: 12px;
+    border-bottom: 1px solid #ddd;
+}
+
+/* Hover */
+.tabela-equipes tr:hover {
+    background-color: #f9fafc;
+}
+
+/* Nome da equipe */
+.nome-equipe {
+    font-weight: 600;
+}
+
+/* ===== CORES ===== */
+.cor-bolinha {
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    display: inline-block;
+    margin-right: 6px;
+    border: 1px solid #aaa;
+}
+
+/* ===== AÇÕES DA TABELA DE EQUIPES ===== */
+.tabela-equipes th.acoes-tabela {
+    text-align: center;
+}
+
+.tabela-equipes td.acoes-tabela {
+    text-align: center;
+    white-space: nowrap;
+    width: 160px;
+}
+
+.tabela-equipes td.acoes-tabela .btn-acao {
+    display: inline-block;
+    padding: 6px 12px;
+    border-radius: 6px;
+    font-size: 0.9rem;
+    text-decoration: none;
+    margin: 0 4px;
+    font-weight: 500;
+    transition: 0.2s;
+}
+
+.tabela-equipes td.acoes-tabela .btn-acao:hover {
+    opacity: 0.85;
+}
+
+/* Botões */
+.btn-editar {
+    background: #0066FF;
+    color: white;
+}
+
+.btn-excluir {
+    background: #E32929;
+    color: white;
+}
+
+/* ===== ESTADO VAZIO ===== */
+.estado-vazio {
+    text-align: center;
+    margin-top: 50px;
+    font-size: 1.2rem;
+    color: #666;
+}
+
+
+
+

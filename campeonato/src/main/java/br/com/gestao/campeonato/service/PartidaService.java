@@ -8,7 +8,7 @@ public interface PartidaService {
 
     Partida salvar(Partida partida);
 
-    Optional<Partida> buscarPorId(Integer id);
+    Partida buscarPorId(Integer id);
 
     List<Partida> listarTodos();
 

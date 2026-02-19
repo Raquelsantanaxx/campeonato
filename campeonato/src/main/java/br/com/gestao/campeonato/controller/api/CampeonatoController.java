@@ -1,4 +1,4 @@
-package br.com.gestao.campeonato.controller;
+package br.com.gestao.campeonato.controller.api;
 
 import br.com.gestao.campeonato.entity.Campeonato;
 import br.com.gestao.campeonato.service.CampeonatoService;

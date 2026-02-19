@@ -1,7 +1,7 @@
 package br.com.gestao.campeonato;
-
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+
 
 @SpringBootApplication
 public class GestaoCampeonatoApplication {
@@ -9,5 +9,5 @@ public class GestaoCampeonatoApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(GestaoCampeonatoApplication.class, args);
 	}
-
 }
+

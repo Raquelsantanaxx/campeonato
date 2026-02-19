@@ -16,7 +16,7 @@ public class Equipe {
     private Integer id;
 
     @ManyToOne
-    @JoinColumn(name = "id_campeonato", nullable = false)
+    @JoinColumn(name = "id_campeonato")
     private Campeonato campeonato;
 
     @Column(name = "nome",nullable = false, length = 100)

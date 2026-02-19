@@ -16,4 +16,6 @@ public interface JogadorService {
     List<Jogador> listarPorEquipe (Integer idEquipe);
 
     void deletar(Integer id);
+
+
 }
