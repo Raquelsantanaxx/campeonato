@@ -21,5 +21,9 @@ public interface PartidaService {
     Partida atualizarResultadoManual(Integer partidaId,
                                      String novoResultado,
                                      Integer usuarioId);
+
+    void gerarPartidasPontosCorridos(Integer campeonatoId);
+
+    void gerarPartidasMataMata(Integer campeonatoId);
 }
 

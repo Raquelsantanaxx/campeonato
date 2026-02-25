@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{base :: layout(~{::section})}">
+
+<section>
+
+    <link rel="stylesheet" th:href="@{/css/jogadores-form.css}">
+
+    <div class="container-form">
+
+        <h2>Novo Jogador</h2>
+
+        <form th:action="@{/jogadores/salvar}"
+              th:object="${jogador}"
+              method="post">
+
+            <div class="campo">
+                <label>Nome:</label>
+                <input type="text" th:field="*{nome}" required>
+            </div>
+
+            <div class="campo">
+                <label>Número:</label>
+                <input type="number" th:field="*{numeroCamisa}" required>
+            </div>
+
+            <div class="campo">
+                <label>Posição:</label>
+                <input type="text" th:field="*{posicao}" required>
+            </div>
+
+            <div class="campo">
+                <label>Equipe:</label>
+                <select th:field="*{equipe.id}" required>
+                    <option value="">Selecione</option>
+
+                    <option th:each="equipe : ${equipes}"
+                            th:value="${equipe.id}"
+                            th:text="${equipe.nome}">
+                    </option>
+                </select>
+            </div>
+
+            <div class="botoes">
+                <button type="submit" class="btn-salvar">
+                    Salvar
+                </button>
+
+                <a href="/jogadores" class="btn-cancelar">
+                    Cancelar
+                </a>
+            </div>
+
+        </form>
+
+    </div>
+
+</section>
+</html>
+
+

@@ -1,5 +1,6 @@
 package br.com.gestao.campeonato.controller.api;
 
+import br.com.gestao.campeonato.dto.EquipeResponseDTO;
 import br.com.gestao.campeonato.entity.Equipe;
 import br.com.gestao.campeonato.service.EquipeService;
 import org.springframework.http.ResponseEntity;
@@ -9,7 +10,7 @@ import java.util.List;
 
 
 @RestController
-@RequestMapping("/equipe")
+@RequestMapping("/api/equipe")
 
 public class EquipeController {
     private final EquipeService equipeService;
@@ -19,19 +20,55 @@ public class EquipeController {
     }
 
     @PostMapping
-    public ResponseEntity<Equipe> cadastrar(@RequestBody Equipe equipe) {
+    public ResponseEntity<EquipeResponseDTO> cadastrar(@RequestBody Equipe equipe) {
+
         Equipe salva = equipeService.salvar(equipe);
-        return ResponseEntity.ok(salva);
+
+        EquipeResponseDTO dto = new EquipeResponseDTO(
+                salva.getId(),
+                salva.getNome(),
+                salva.getSigla(),
+                salva.getCampeonato().getId(),
+                salva.getCampeonato().getNome()
+        );
+
+        return ResponseEntity.ok(dto);
     }
+
     @GetMapping
-    public ResponseEntity<List<Equipe>> listarTodos() {
-        return ResponseEntity.ok(equipeService.listarTodos());
+    public ResponseEntity<List<EquipeResponseDTO>> listarTodos() {
+
+        List<EquipeResponseDTO> lista = equipeService.listarTodos()
+                .stream()
+                .map(e -> new EquipeResponseDTO(
+                        e.getId(),
+                        e.getNome(),
+                        e.getSigla(),
+                        e.getCampeonato().getId(),
+                        e.getCampeonato().getNome()
+                ))
+                .toList();
+
+        return ResponseEntity.ok(lista);
     }
-    @GetMapping("/{id}")
-    public ResponseEntity<Equipe> buscarPorId(@PathVariable Integer id) {
-        return equipeService.buscarPorId(id)
-                .map(ResponseEntity::ok)
-                .orElse(ResponseEntity.notFound().build());
+
+    @GetMapping("/campeonato/{campeonatoId}")
+    public ResponseEntity<List<EquipeResponseDTO>> listarPorCampeonato(
+            @PathVariable Integer campeonatoId) {
+
+        List<EquipeResponseDTO> lista = equipeService
+                .listarPorCampeonato(campeonatoId)
+                .stream()
+                .map(e -> new EquipeResponseDTO(
+                        e.getId(),
+                        e.getNome(),
+                        e.getSigla(),
+                        e.getCampeonato().getId(),
+                        e.getCampeonato().getNome()
+                ))
+                .toList();
+
+        return ResponseEntity.ok(lista);
     }
 
     @DeleteMapping("/{id}")
@@ -39,8 +76,6 @@ public class EquipeController {
         equipeService.deletar(id);
         return ResponseEntity.noContent().build();
     }
-
-
 }
 
 

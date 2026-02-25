@@ -16,4 +16,12 @@ public interface CampeonatoService {
     Campeonato atualizar(Integer id, Campeonato campeonato);
 
     void desativar(Integer id);
+
+    boolean isPontosCorridos(Integer campeonatoId);
+
+    void iniciarCampeonato(Integer campeonatoId);
+
+    void encerrarCampeonato(Integer campeonatoId);
+
 }
+

@@ -23,8 +23,9 @@ public class Campeonato {
     @Column(nullable = false, length = 150)
     private String nome;
 
-    @Column(length = 50)
-    private String formato;
+    @Enumerated(EnumType.STRING)
+    @Column(name = "formato", length = 50, nullable = false)
+    private Formatocampeonato formato;
 
     @Column(name = "data_inicio", nullable = false)
     private LocalDate dataInicio;
@@ -34,4 +35,7 @@ public class Campeonato {
 
     @Column(nullable = false)
     private Boolean ativo = true;
+
+    @Column(nullable = false)
+    private Boolean iniciado = false;
 }

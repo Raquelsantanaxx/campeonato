@@ -1,11 +1,13 @@
+/* ================= GERAL ================= */
+
 body {
-    margin:0;
-    height:100vh;
-    font-family: Arial, Helvetica, sans-serif;
-    background: linear-gradient(135deg, #ff6b00, #ff2d00);
-    display:flex;
-    align-items:center;
-    justify-content:center;
+    margin: 0;
+    height: 100vh;
+    font-family: 'Inter', sans-serif;
+    background: #ffffff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .main-content {
@@ -13,111 +15,139 @@ body {
     align-items: center;
     justify-content: space-around;
     width: 90%;
-    max-width: 1100px;
-    gap: 40px;
+    max-width: 1200px;
+    gap: 60px;
 }
+
+/* ================= HERO TEXT ================= */
 
 .hero-text {
-    max-width: 500px; /* Evita que o texto fique largo demais */
-    text-align: left; /* Alinhamento à esquerda igual ao modelo */
+    max-width: 520px;
 }
 
-.hero-text h1 {
-    font-size: 48px; /* Tamanho grande de impacto */
-    font-weight: 800; /* Extra negrito */
-    font-weight: 800; /* Extra negrito */
-    line-height: 1.1; /* Espaçamento entre linhas mais justo */
-    color: #222; /* Cor quase preta para melhor leitura */
+/* BoraVôlei com gradiente moderno */
+.brand {
+    font-size: 56px;
+    font-weight: 800;
+    letter-spacing: -1px;
     margin-bottom: 15px;
-    font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+
+    background: linear-gradient(135deg, #ff6b00, #ff2d00);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
 }
 
-/* Estilo para destacar palavras específicas se desejar (opcional) */
-/* Exemplo: se quiser parte do texto em laranja igual à marca */
-.hero-text h1 span {
+/* Subtítulo */
+.subtitle {
+    font-size: 38px;
+    font-weight: 600;
+    line-height: 1.2;
+    letter-spacing: -0.5px;
     color: #ff6b00;
 }
 
-.hero-text p {
-    font-size: 18px;
-    color: #666; /* Cinza médio para o subtítulo */
-    margin: 0;
-    font-weight: 400;
-}
+/* ================= LOGIN CARD ================= */
 
-.login-card{
-    background:white;
-    padding:40px;
-    width:320px;
-    border-radius:12px;
-    box-shadow:0 15px 30px rgba(0,0,0,0.2);
-    text-align:center;
-}
-.logo {
+.login-card {
     background: linear-gradient(135deg, #ff6b00, #ff2d00);
-    width: 60px;
-    height: 60px;
-    border-radius: 12px;
-    margin: 0 auto 20px auto; /* Centraliza horizontalmente e dá espaço embaixo */
+    padding: 45px;
+    width: 340px;
+    border-radius: 20px;
+    box-shadow: 0 30px 60px rgba(255, 107, 0, 0.35);
+    text-align: center;
+    color: white;
+}
 
-    /* Faz o troféu ficar bem no meio do quadrado laranja */
+/* Logo com fundo branco */
+.logo {
+    background: white;
+    width: 80px;
+    height: 80px;
+    border-radius: 18px;
+    margin: 0 auto 25px auto;
     display: flex;
     align-items: center;
     justify-content: center;
+    box-shadow: 0 12px 25px rgba(0,0,0,0.15);
 }
 
 .logo img {
-    width: 35px;
-    height: auto;
-    content: url('../img/trofeu2.png');
-
+    width: 40px;
 }
 
-input{
-    width:100%;
-    padding:12px;
-    margin:10px 0;
-    border-radius:8px;
-    border:1px solid #ddd;
-    box-sizing: border-box;
+/* Título Entrar */
+.login-card h2 {
+    font-size: 24px;
+    font-weight: 600;
+    margin-bottom: 20px;
 }
 
-button{
-    width:100%;
-    padding:12px;
-    background:#ff6b00;
-    border:none;
-    color:white;
-    border-radius:8px;
-    font-weight:bold;
-    cursor:pointer;
+/* ================= INPUTS ================= */
+
+input {
+    width: 100%;
+    padding: 13px;
+    margin: 10px 0;
+    border-radius: 10px;
+    border: none;
+    outline: none;
+    font-family: 'Inter', sans-serif;
+    font-weight: 500;
+    font-size: 14px;
 }
 
-button:hover{
-    background:#e85f00;
+input::placeholder {
+    color: #999;
 }
 
-.remember{
+/* ================= BOTÃO ================= */
+
+button {
+    width: 100%;
+    padding: 13px;
+    margin-top: 10px;
+    background: white;
+    border: none;
+    border-radius: 10px;
+    font-weight: 600;
+    font-family: 'Inter', sans-serif;
+    letter-spacing: 0.3px;
+    color: #ff6b00;
+    cursor: pointer;
+    transition: 0.3s ease;
+}
+
+button:hover {
+    background: #f2f2f2;
+    transform: translateY(-2px);
+}
+
+/* ================= CHECKBOX ================= */
+
+.remember {
     display: flex;
     align-items: center;
-    justify-content: center; /* Centraliza horizontalmente */
+    justify-content: center;
     font-size: 14px;
     margin: 15px 0;
-    cursor: pointer;
-    width: 100%;
+    color: white;
 }
+
 .remember input {
-    width: auto;      /* Remove o 100% que estava empurrando o texto */
-    margin: 0 8px 0 0; /* Espaço apenas à direita, entre o box e o texto */
-    cursor: pointer;
+    width: auto;
+    margin-right: 8px;
 }
 
-.error{
-    color:red;
-    font-size:14px;
+/* ================= MENSAGENS ================= */
+
+.error {
+    margin-top: 10px;
+    font-size: 14px;
+    color: #ffe6e6;
 }
 
-.success{
-    color:green;
-    font-size:14px;
+.success {
+    margin-top: 10px;
+    font-size: 14px;
+    color: #e0ffe0;
 }

@@ -8,6 +8,10 @@ import br.com.gestao.campeonato.repository.PartidaRepository;
 import br.com.gestao.campeonato.repository.UsuarioRepository;
 import br.com.gestao.campeonato.service.PartidaService;
 import org.springframework.stereotype.Service;
+import br.com.gestao.campeonato.entity.Campeonato;
+import br.com.gestao.campeonato.entity.Equipe;
+import br.com.gestao.campeonato.repository.EquipeRepository;
+import br.com.gestao.campeonato.repository.CampeonatoRepository;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -19,15 +23,20 @@ public class PartidaServiceImpl implements PartidaService {
     private final PartidaRepository partidaRepository;
     private final AuditoriaResultadoRepository auditoriaRepository;
     private final UsuarioRepository usuarioRepository;
-
+    private final EquipeRepository equipeRepository;
+    private final CampeonatoRepository campeonatoRepository;
 
 
     public PartidaServiceImpl(PartidaRepository partidaRepository,
                               AuditoriaResultadoRepository auditoriaRepository,
-                              UsuarioRepository usuarioRepository) {
+                              UsuarioRepository usuarioRepository,
+                              EquipeRepository equipeRepository,
+                              CampeonatoRepository campeonatoRepository) {
         this.partidaRepository = partidaRepository;
         this.auditoriaRepository = auditoriaRepository;
         this.usuarioRepository = usuarioRepository;
+        this.equipeRepository = equipeRepository;
+        this.campeonatoRepository = campeonatoRepository;
     }
 
     @Override
@@ -100,6 +109,36 @@ public class PartidaServiceImpl implements PartidaService {
         auditoriaRepository.save(auditoria);
 
         return partidaSalva;
+    }
+    @Override
+    public void gerarPartidasPontosCorridos(Integer campeonatoId) {
+
+        Campeonato campeonato = campeonatoRepository.findById(campeonatoId)
+                .orElseThrow(() -> new RuntimeException("Campeonato não encontrado"));
+
+        List<Equipe> equipes = equipeRepository.findByCampeonatoId(campeonatoId);
+
+        if (equipes.size() < 2) {
+            throw new RuntimeException("É necessário no mínimo 2 equipes.");
+        }
+
+        for (int i = 0; i < equipes.size(); i++) {
+            for (int j = i + 1; j < equipes.size(); j++) {
+
+                Partida partida = new Partida();
+                partida.setCampeonato(campeonato);
+                partida.setEquipeMandante(equipes.get(i));
+                partida.setEquipeVisitante(equipes.get(j));
+                partida.setFinalizada(false);
+
+                partidaRepository.save(partida);
+            }
+        }
+    }
+
+    @Override
+    public void gerarPartidasMataMata(Integer campeonatoId) {
+        // IMPLEMENTAÇÃO NO PRÓXIMO PASSO
     }
 
 }

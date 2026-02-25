@@ -11,5 +11,7 @@ public interface EquipeService {
     List<Equipe> listarTodos();
 
     void deletar(Integer id);
+
+    List<Equipe> listarPorCampeonato(Integer campeonatoId);
 }
 

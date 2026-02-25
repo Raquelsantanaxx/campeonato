@@ -1,0 +1,54 @@
+<div xmlns:th="http://www.thymeleaf.org"
+     th:replace="~{base :: layout(~{::section})}">
+
+<section class="lista-container">
+
+    <div class="lista-header">
+        <div>
+            <h2>👥Equipes</h2>
+            <p class="subtitulo">Gerencie as equipes cadastradas</p>
+        </div>
+
+        <a th:href="@{/equipes/novo}" class="btn-nova-equipe">
+            + Nova Equipe
+        </a>
+    </div>
+
+    <div th:if="${equipes.size() == 0}" class="estado-vazio">
+        Nenhuma equipe cadastrada. Clique em <strong>Nova Equipe</strong> para começar.
+    </div>
+
+    <table th:if="${equipes.size() > 0}" class="tabela-equipes">
+        <thead>
+        <tr>
+            <th>Equipe</th>
+            <th>Sigla</th>
+            <th>Campeonato</th>
+            <th>Cores</th>
+            <th class="acoes-tabela">Ações</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        <tr th:each="equipe : ${equipes}">
+            <td class="nome-equipe" th:text="${equipe.nome}"></td>
+            <td th:text="${equipe.sigla}"></td>
+            <td th:text="${equipe.campeonato.nome}"></td>
+
+            <td>
+        <span class="cor-bolinha"
+              th:style="'background:' + ${equipe.corPrimaria}"></span>
+                <span class="cor-bolinha"
+                      th:style="'background:' + ${equipe.corSecundaria}"></span>
+            </td>
+
+            <td class="acoes-tabela">
+                <a href="#" class="btn-acao btn-editar">Editar</a>
+                <a href="#" class="btn-acao btn-excluir">Excluir</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+</section>
+</div>

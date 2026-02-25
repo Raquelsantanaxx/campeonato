@@ -2,19 +2,21 @@ package br.com.gestao.campeonato.controller.api;
 
 import br.com.gestao.campeonato.entity.Campeonato;
 import br.com.gestao.campeonato.service.CampeonatoService;
+import br.com.gestao.campeonato.service.PartidaService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
-@RequestMapping("/campeonato")
+@RequestMapping("/api/campeonatos")
 public class CampeonatoController {
 
     private final CampeonatoService campeonatoService;
-
-    public CampeonatoController(CampeonatoService campeonatoService) {
+    private final PartidaService partidaService;
+    public CampeonatoController(CampeonatoService campeonatoService, PartidaService partidaService) {
         this.campeonatoService = campeonatoService;
+        this.partidaService = partidaService;
     }
 
     @PostMapping
@@ -42,6 +44,12 @@ public class CampeonatoController {
         campeonatoService.desativar(id);
         return ResponseEntity.noContent().build();
     }
+    @PostMapping("/{id}/iniciar")
+    public ResponseEntity<Void> iniciar(@PathVariable Integer id) {
+        campeonatoService.iniciarCampeonato(id);
+        return ResponseEntity.ok().build();
+    }
+
 
 }
 

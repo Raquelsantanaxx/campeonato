@@ -6,6 +6,7 @@ import br.com.gestao.campeonato.service.EquipeService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -42,6 +43,19 @@ public class EquipeViewController {
     public String salvar(Equipe equipe) {
         equipeService.salvar(equipe);
         return "redirect:/equipes";
+    }
+    @GetMapping("/campeonato/{id}")
+    public String listarPorCampeonato(
+            @PathVariable Integer id,
+            Model model) {
+
+        model.addAttribute("equipes",
+                equipeService.listarPorCampeonato(id));
+
+        model.addAttribute("campeonato",
+                campeonatoService.buscarPorId(id));
+
+        return "equipes/lista-por-campeonato";
     }
 }
 
