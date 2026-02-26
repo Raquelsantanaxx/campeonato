@@ -136,4 +136,11 @@ public class SetPartidaServiceImpl implements SetPartidaService {
     }
 }
 
+//pessoal ainda falta chamar os sets dentro 
+// dentro do arquivo de partidas.
+// tem que implementar para que as tabelas sejam
+// configuradas automaticamente
+// ontem só implementei até a crianção 
+// de rodadas automática e acrescentei uma
+// página fantasma. 
 
