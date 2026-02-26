@@ -29,4 +29,7 @@ public class CustomUserDetailsService implements UserDetailsService {
     }
 
 }
-
+// ainda falta implementar os tipos
+// de perfil, tem que configurar jogador
+// visualizador, organizador, árbitro, ADM
+// use os mesmos perfil do banco de dados. 
