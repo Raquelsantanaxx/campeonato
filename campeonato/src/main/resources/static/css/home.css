@@ -1,9 +1,13 @@
+/* ==============================
+   HERO
+================================= */
 .hero{
     display:flex;
     align-items:center;
     justify-content:space-between;
     padding:80px 60px;
     gap:40px;
+    position: relative;
 }
 
 .hero-text{
@@ -15,6 +19,7 @@
     margin:15px 0;
     line-height: 1.2;
 }
+
 .hero h1 .highlight {
     color: var(--primary-orange);
 }
@@ -47,6 +52,7 @@
     text-decoration:none;
     font-weight:600;
 }
+
 .btn-primary:hover {
     opacity: 0.9;
 }
@@ -60,20 +66,24 @@
     font-weight:600;
 }
 
+/* IMAGEM HERO */
 .hero-image {
     position: absolute;
-    right: -60px;       /* empurra para fora um pouco */
+    right: -60px;
     top: 50%;
     transform: translateY(-50%);
     z-index: 1;
 }
 
 .hero-image img {
-    width: 600px;       /* AQUI você controla o tamanho */
+    width: 600px;
     max-width: none;
     opacity: 0.95;
 }
 
+/* ==============================
+   FUNCIONALIDADES
+================================= */
 .section-alt {
     background: var(--bg-light-gray);
     padding: 80px 40px;
@@ -89,6 +99,7 @@
     display: flex;
     gap: 30px;
     justify-content: center;
+    flex-wrap: wrap;
 }
 
 .card {
@@ -103,4 +114,110 @@
     margin-bottom: 10px;
 }
 
+/* ==============================
+   FALE CONOSCO
+================================= */
+.contato-section {
+    padding: 60px 30px;
+    background: var(--bg-light-gray);
+}
+
+.contato-container {
+    max-width: 1200px;
+    margin: auto;
+    background: linear-gradient(
+            135deg,
+            var(--primary-orange),
+            var(--bg-light-gray)
+    );
+    border-radius: 20px;
+    padding: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 40px;
+    color: white;
+}
+
+/* TEXTO */
+.contato-info {
+    max-width: 520px;
+}
+
+.contato-subtitulo {
+    font-weight: 600;
+    opacity: 0.9;
+}
+
+.contato-info h2 {
+    font-size: 42px;
+    margin: 10px 0;
+}
+
+.contato-info p {
+    font-size: 18px;
+    opacity: 0.9;
+}
+
+/* CONTATOS EXTRA */
+.contato-outros {
+    margin-top: 20px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+/* ==============================
+   ICON BOX (IMAGEM NO QUADRADO)
+================================= */
+.icon-box {
+    width: 180px;
+    height: 180px;
+
+    background: rgba(255,255,255,0.15);
+    border-radius: 32px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    overflow: hidden;
+    flex-shrink: 0;
+}
+
+.icon-box img {
+    width: 70%;
+    height: 70%;
+    object-fit: contain;
+}
+
+/* ==============================
+   RESPONSIVO
+================================= */
+@media (max-width: 900px) {
+
+    .hero {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .hero-image {
+        position: static;
+        transform: none;
+    }
+
+    .hero-image img {
+        width: 100%;
+        max-width: 420px;
+    }
+
+    .contato-container {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .contato-info h2 {
+        font-size: 32px;
+    }
+}
 

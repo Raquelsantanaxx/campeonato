@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
-      th:replace="~{base :: layout(~{::section})}">
+      th:replace="~{base-privado :: layout(~{::section})}">
 
 <section class="form-container">
 
@@ -8,17 +8,23 @@
 
         <div class="form-header">
             <div>
-                <h2>Cadastrar Campeonato</h2>
+                <h2 th:text="${campeonato.id != null} ? 'Editar Campeonato' : 'Cadastrar Campeonato'">
+                    Cadastrar Campeonato
+                </h2>
                 <p class="subtitulo">Informe os dados do campeonato</p>
             </div>
 
             <a th:href="@{/campeonatos}" class="btn-voltar">← Voltar</a>
         </div>
 
+        <!-- FORMULÁRIO CORRETO -->
         <form th:action="@{/campeonatos}"
               th:object="${campeonato}"
               method="post"
               class="form">
+
+            <!-- ID OCULTO (ESSENCIAL PARA UPDATE) -->
+            <input type="hidden" th:field="*{id}" />
 
             <div class="campo">
                 <label>Nome do Campeonato</label>
@@ -27,7 +33,11 @@
 
             <div class="campo">
                 <label>Formato</label>
-                <input type="text" th:field="*{formato}" placeholder="Ex: Pontos Corridos">
+                <select th:field="*{formato}">
+                    <option value="">Selecione</option>
+                    <option value="PONTOS_CORRIDOS">Pontos Corridos</option>
+                    <option value="MATA_MATA">Mata-mata</option>
+                </select>
             </div>
 
             <div class="linha">

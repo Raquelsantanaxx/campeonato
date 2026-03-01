@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="pt-BR"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Rodadas do Campeonato</title>
+
+    <link rel="stylesheet" th:href="@{/css/rodadas.css}">
+</head>
+
+<body>
+
+<h1>Rodadas do Campeonato</h1>
+
+<div th:each="rodada : ${rodadas}" class="rodada">
+    <h3>
+        Rodada <span th:text="${rodada.numeroRodada}"></span>
+    </h3>
+
+    <div th:each="partida : ${rodada.partidas}" class="partida">
+        <p>
+            <strong th:text="${partida.mandante}"></strong>
+            x
+            <strong th:text="${partida.visitante}"></strong>
+        </p>
+    </div>
+</div>
+
+<a th:href="@{/campeonatos}">⬅ Voltar</a>
+
+</body>
+</html>

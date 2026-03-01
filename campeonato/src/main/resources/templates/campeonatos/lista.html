@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
-      th:replace="~{base :: layout(~{::section})}">
+      th:replace="~{base-privado :: layout(~{::section})}">
 
 <section class="campeonatos-page">
 
@@ -18,30 +18,38 @@
             </a>
         </div>
 
-        <!-- GRID DE CARDS -->
+        <!-- GRID -->
         <div class="grid-campeonatos">
 
             <div th:each="camp : ${campeonatos}" class="card-campeonato">
 
-                <!-- TOPO DO CARD -->
                 <div class="card-topo">
-                    <h3 th:text="${camp.nome}">Nome do Campeonato</h3>
+                    <h3 th:text="${camp.nome}">Nome</h3>
 
-                    <!-- AÇÕES (BOTÕES) -->
-                    <div class="acoes-campeonato">
+                    <div class="acoes-campeonato"
+                         th:if="${#authentication != null
+                                    and camp.organizador.email == #authentication.name}">
+
                         <a th:href="@{/campeonatos/editar/{id}(id=${camp.id})}"
                            class="btn-acao btn-editar">
                             Editar
                         </a>
 
-                        <a th:href="@{/campeonatos/excluir/{id}(id=${camp.id})}"
-                           class="btn-acao btn-excluir">
-                            Excluir
-                        </a>
+                        <form th:action="@{/campeonatos/desativar/{id}(id=${camp.id})}"
+                              method="post"
+                              style="display:inline;">
+
+                            <button type="submit"
+                                    class="btn-acao btn-excluir"
+                                    onclick="return confirm('Tem certeza que deseja desativar este campeonato?')">
+                                Desativar
+                            </button>
+
+                        </form>
+
                     </div>
                 </div>
 
-                <!-- INFORMAÇÕES -->
                 <div class="info">
                     <p>
                         <strong>Formato:</strong>
@@ -49,14 +57,12 @@
                     </p>
 
                     <p>
-                        <strong>Datas:</strong>
-                        <span th:text="${camp.dataInicio}"></span>
+                        <span th:text="${#temporals.format(camp.dataInicio, 'dd/MM/yyyy')}"></span>
                         até
-                        <span th:text="${camp.dataFim}"></span>
+                        <span th:text="${#temporals.format(camp.dataFim, 'dd/MM/yyyy')}"></span>
                     </p>
                 </div>
 
-                <!-- STATUS -->
                 <span class="status"
                       th:text="${camp.ativo} ? 'Ativo' : 'Inativo'"
                       th:classappend="${camp.ativo} ? ' status-ativo' : ' status-inativo'">
@@ -70,5 +76,4 @@
 
 </section>
 </html>
-
 

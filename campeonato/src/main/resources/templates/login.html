@@ -1,29 +1,34 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="pt-BR"
+      xmlns:th="http://www.thymeleaf.org">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login - BoraVôlei</title>
 
-    <!-- Fonte moderna -->
+    <!-- Fonte -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 
+    <!-- CSS -->
     <link rel="stylesheet" th:href="@{/css/login.css}">
 </head>
+
 <body>
 
 <div class="main-content">
 
+    <!-- HERO -->
     <div class="hero-text">
         <h1 class="brand">BoraVôlei</h1>
         <h2 class="subtitle">
             Gestão de Campeonatos <br>
-            Esportivos de Volêi
+            Esportivos de Vôlei
         </h2>
     </div>
 
+    <!-- LOGIN -->
     <div class="login-container">
         <div class="login-card">
 
@@ -35,23 +40,41 @@
 
                 <h2>Entrar</h2>
 
-                <input type="text" name="username" placeholder="Email" required>
+                <!-- EMAIL -->
+                <input type="text"
+                       name="username"
+                       placeholder="Email"
+                       required>
 
-                <input type="password" name="password" placeholder="Senha" required>
+                <!-- SENHA -->
+                <input type="password"
+                       name="password"
+                       placeholder="Senha"
+                       required>
 
+                <!-- LEMBRAR -->
                 <label class="remember">
                     <input type="checkbox" name="remember-me">
                     Lembrar-me
                 </label>
 
+                <!-- BOTÃO -->
                 <button type="submit">Entrar</button>
 
+                <!-- ERRO -->
                 <p th:if="${param.error}" class="error">
                     Usuário ou senha inválidos
                 </p>
 
+                <!-- LOGOUT -->
                 <p th:if="${param.logout}" class="success">
-                    Logout realizado
+                    Logout realizado com sucesso
+                </p>
+
+                <!-- LINK CADASTRO -->
+                <p class="login-link">
+                    Ainda não tem conta?
+                    <a th:href="@{/cadastro}">Criar conta</a>
                 </p>
 
             </form>

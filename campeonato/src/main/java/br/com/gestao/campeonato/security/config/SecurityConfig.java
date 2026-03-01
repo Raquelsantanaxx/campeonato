@@ -1,45 +1,53 @@
 package br.com.gestao.campeonato.security.config;
 
-import br.com.gestao.campeonato.security.service.CustomUserDetailsService;
-import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
+import org.springframework.http.HttpMethod;
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.web.SecurityFilterChain;
 
 @Configuration
-@RequiredArgsConstructor
+@EnableMethodSecurity
 public class SecurityConfig {
-
-    private final CustomUserDetailsService customUserDetailsService;
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 
         http
                 .csrf(csrf -> csrf.disable())
+
                 .authorizeHttpRequests(auth -> auth
+
+                        // 🔓 ARQUIVOS ESTÁTICOS
+                        .requestMatchers("/css/**", "/js/**", "/img/**").permitAll()
+
+                        // 🔓 PÁGINAS PÚBLICAS (SOMENTE VISUALIZAÇÃO)
                         .requestMatchers(
-                                "/login",
-                                "/css/**",
-                                "/img/**",
-                                "/js/**",
-                                "/usuario/**",
-                                "/api/**"
+                                "/", "/home",
+                                "/login", "/cadastro"
                         ).permitAll()
+                        .requestMatchers(HttpMethod.GET, "/campeonatos").permitAll()
+
+                        // 🔐 QUALQUER COISA EM /campeonatos/** EXIGE LOGIN
+                        .requestMatchers("/campeonatos/**").authenticated()
+
+                        // 🔐 RESTO DO SISTEMA EXIGE LOGIN
                         .anyRequest().authenticated()
                 )
-                .formLogin(login -> login
+
+                .formLogin(form -> form
                         .loginPage("/login")
                         .defaultSuccessUrl("/home", true)
                         .permitAll()
                 )
+
                 .logout(logout -> logout
-                        .logoutSuccessUrl("/login?logout")
+                        .logoutUrl("/logout")
+                        .logoutSuccessUrl("/home")
+                        .permitAll()
                 );
 
         return http.build();
@@ -49,11 +57,4 @@ public class SecurityConfig {
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
-
-    // 🔥 SPRING PRECISA DISSO PARA AUTENTICAR
-    @Bean
-    public AuthenticationManager authenticationManager(AuthenticationConfiguration config) throws Exception {
-        return config.getAuthenticationManager();
-    }
 }
-

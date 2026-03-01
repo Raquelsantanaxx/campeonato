@@ -1,82 +1,88 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
-      th:replace="~{base :: layout(~{::section})}">
+      th:replace="~{base-publico :: layout(~{::section})}">
 
-<section>
+<section class="hero">
 
-    <!-- HERO -->
-    <section class="hero">
+    <div class="hero-text">
+        <span class="tag">BoraVôlei</span>
 
-        <div class="hero-text">
+        <h1>
+            Gestão de Campeonatos<br>
+            <span class="highlight">Esportivos</span>
+        </h1>
 
-            <span class="tag">
-                BoraVolêi
-            </span>
+        <p>
+            Centralize o gerenciamento de campeonatos, equipes,
+            partidas e resultados em uma plataforma simples
+        </p>
 
-            <h1>
-                Gestão de Campeonatos<br>
-                <span class="highlight">Esportivos</span>
-            </h1>
-
-            <p>
-                Centralize o gerenciamento de campeonatos, equipes,
-                partidas e resultados em uma plataforma simples,
-                rápida e profissional.
-            </p>
-
-            <div class="hero-actions">
-                <a href="/campeonatos" class="btn-primary">
-                    Começar agora
-                </a>
-
-                <a href="/partidas" class="btn-secondary">
-                    Ver partidas
-                </a>
-            </div>
-
+        <div class="hero-actions">
+            <a th:href="@{/campeonatos/novo}" class="btn-primary">
+                Criar Campeonato
+            </a>
         </div>
+    </div>
 
-        <div class="hero-image">
-            <img src="/img/home.png" alt="Atleta de vôlei">
-        </div>
+    <div class="hero-image">
+        <img th:src="@{/img/home.png}" alt="Atleta de vôlei">
+    </div>
 
-    </section>
+</section>
 
     <!-- FUNCIONALIDADES -->
     <section class="section-alt">
-
         <h2 class="section-title">Funcionalidades</h2>
 
         <div class="cards">
-
             <div class="card">
                 <h3>🏆 Campeonatos</h3>
-                <p>
-                    Crie, organize e gerencie campeonatos completos
-                    com regras e classificações automáticas.
-                </p>
+                <p>Organize competições completas com regras e classificações.</p>
             </div>
 
             <div class="card">
                 <h3>👥 Equipes</h3>
-                <p>
-                    Cadastre equipes, jogadores e acompanhe
-                    a participação em cada competição.
-                </p>
+                <p>Cadastre equipes e jogadores com total controle.</p>
             </div>
 
             <div class="card">
                 <h3>🏐 Partidas</h3>
-                <p>
-                    Registre partidas, resultados e histórico
-                    com total controle e transparência.
-                </p>
+                <p>Registre partidas, resultados e histórico detalhado.</p>
             </div>
+        </div>
+    </section>
+    <!-- ========================= -->
+    <!-- FALE CONOSCO -->
+    <!-- ========================= -->
+<section id="fale-conosco" class="contato-section">
+
+        <div class="contato-container">
+
+            <!-- LADO ESQUERDO -->
+            <div class="contato-info">
+
+            <span class="contato-subtitulo">
+                Está com dúvidas?
+            </span>
+
+                <h2>
+                    Fale com nossa equipe!
+                </h2>
+
+                    <div class="contato-outros">
+                        <span>boravolei@gmail.com</span>
+                        //<span class="icone">✉️</span>
+                    </div>
+
+                </div>
+
+            </div>
+
+            <!-- LADO DIREITO -->
 
         </div>
 
     </section>
-
 </section>
 </html>
 

@@ -7,21 +7,22 @@ import java.util.List;
 
 public interface CampeonatoService {
 
-    Campeonato salvar(Campeonato campeonato);
+    Campeonato salvar(Campeonato campeonato, String emailUsuario);
 
     Campeonato buscarPorId(Integer id);
 
     List<Campeonato> listarTodos();
 
-    Campeonato atualizar(Integer id, Campeonato campeonato);
+    Campeonato atualizar(Integer id, Campeonato campeonato, String emailUsuario);
 
-    void desativar(Integer id);
+    void desativar(Integer id, String emailUsuario);
 
     boolean isPontosCorridos(Integer campeonatoId);
 
-    void iniciarCampeonato(Integer campeonatoId);
+    void iniciarCampeonato(Integer id, String emailUsuario);
 
     void encerrarCampeonato(Integer campeonatoId);
+
 
 }
 

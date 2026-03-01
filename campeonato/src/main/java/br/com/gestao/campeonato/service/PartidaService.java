@@ -1,5 +1,6 @@
 package br.com.gestao.campeonato.service;
 
+import br.com.gestao.campeonato.dto.RodadaDTO;
 import br.com.gestao.campeonato.entity.Partida;
 import java.util.List;
 import java.util.Optional;
@@ -25,5 +26,6 @@ public interface PartidaService {
     void gerarPartidasPontosCorridos(Integer campeonatoId);
 
     void gerarPartidasMataMata(Integer campeonatoId);
+    List<RodadaDTO> gerarRodadasPontosCorridos(Integer campeonatoId);
 }
 

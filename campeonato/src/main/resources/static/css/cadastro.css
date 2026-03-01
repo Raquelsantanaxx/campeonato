@@ -1,0 +1,123 @@
+/* ================= GERAL ================= */
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    height: 100vh;
+    font-family: 'Inter', sans-serif;
+    background: #f8f9fa;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* ================= CARD ================= */
+
+.form-container {
+    width: 100%;
+    max-width: 420px;
+
+    padding: 45px 40px;
+
+    border-radius: 20px;
+
+    background: linear-gradient(135deg, #ff6b00, #ff2d00);
+
+    box-shadow: 0 25px 60px rgba(255, 107, 0, 0.35);
+
+    color: white;
+
+    text-align: center;
+}
+
+/* ================= TÍTULO ================= */
+
+.titulo-pagina {
+    font-size: 28px;
+    font-weight: 600;
+    margin-bottom: 25px;
+}
+
+/* ================= FORM GROUP ================= */
+
+.form-group {
+    margin-bottom: 18px;
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+}
+
+.form-group label {
+    margin-bottom: 6px;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+/* ================= INPUTS ================= */
+
+.form-group input {
+    padding: 12px;
+    border-radius: 10px;
+    border: none;
+    outline: none;
+    font-size: 14px;
+    font-family: inherit;
+}
+
+.form-group input::placeholder {
+    color: #999;
+}
+
+/* ================= BOTÃO ================= */
+
+.form-actions {
+    margin-top: 20px;
+}
+
+.btn-primary {
+    width: 100%;
+    padding: 13px;
+
+    background: white;
+    color: #ff6b00;
+
+    border: none;
+    border-radius: 10px;
+
+    font-weight: 600;
+    cursor: pointer;
+
+    transition: 0.3s ease;
+}
+
+.btn-primary:hover {
+    background: #f2f2f2;
+    transform: translateY(-2px);
+}
+
+/* ================= ERRO ================= */
+
+.erro {
+    background: rgba(255,255,255,0.15);
+    padding: 10px;
+    border-radius: 8px;
+    margin-bottom: 15px;
+    font-size: 14px;
+}
+
+/* ================= LINK LOGIN ================= */
+
+.link-login {
+    margin-top: 20px;
+    font-size: 14px;
+}
+
+.link-login a {
+    color: white;
+    font-weight: 600;
+    text-decoration: underline;
+}

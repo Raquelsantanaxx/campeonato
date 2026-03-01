@@ -16,7 +16,7 @@ public class Campeonato {
     private Integer id;
 
     @ManyToOne
-    @JoinColumn(name = "id_organizador")
+    @JoinColumn(name = "id_organizador", nullable = false)
     private Usuario organizador;
 
 

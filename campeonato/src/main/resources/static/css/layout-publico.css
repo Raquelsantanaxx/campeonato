@@ -1,0 +1,88 @@
+/* ===== HEADER ===== */
+
+.header-publico {
+    background: #ffffff;
+    padding: 15px 30px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid #ddd;
+}
+
+/* ===== LOGO ===== */
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 18px;
+    font-weight: bold;
+    color: #FF6B00;
+}
+
+.logo img {
+    width: 32px;
+    height: 32px;
+}
+
+/* ===== MENU CENTRAL ===== */
+
+.menu-publico {
+    display: flex;
+    gap: 25px;
+}
+
+.menu-publico a {
+    text-decoration: none;
+    color: #333;
+    font-weight: bold;
+    padding: 8px 12px;
+    border-radius: 4px;
+    transition: 0.2s;
+}
+
+.menu-publico a:hover {
+    color: #FF6B00;
+    background: #fff3e8;
+}
+
+/* ===== AÇÕES (BOTÕES) ===== */
+
+.acoes-publico {
+    display: flex;
+    gap: 12px;
+}
+
+/* BOTÃO PRINCIPAL */
+.btn-primary {
+    background: #FF6B00;
+    color: white;
+    padding: 8px 16px;
+    border-radius: 6px;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.btn-primary:hover {
+    background: #e65c00;
+}
+
+/* BOTÃO OUTLINE */
+.btn-outline {
+    border: 2px solid #FF6B00;
+    color: #FF6B00;
+    padding: 6px 14px;
+    border-radius: 6px;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.btn-outline:hover {
+    background: #fff3e8;
+}
+
+/* ===== CONTEÚDO ===== */
+
+.conteudo-publico {
+    padding: 30px;
+}

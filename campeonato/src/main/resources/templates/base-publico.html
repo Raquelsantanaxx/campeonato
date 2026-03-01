@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      th:fragment="layout(content)">
+
+<head>
+    <meta charset="UTF-8">
+    <title>BoraVôlei</title>
+
+    <!-- CSS -->
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <link rel="stylesheet" th:href="@{/css/layout-publico.css}">
+    <link rel="stylesheet" th:href="@{/css/home.css}">
+
+    <!-- Fonte -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+
+<body>
+
+<header class="header-publico">
+
+    <!-- LOGO -->
+    <div class="logo">
+        <img th:src="@{/img/bolaDeVolei2.png}" alt="BoraVôlei">
+        <span>BoraVôlei</span>
+    </div>
+
+    <!-- MENU CENTRAL -->
+    <nav class="menu-publico">
+
+        <a th:href="@{/home}">Início</a>
+
+        <a th:href="@{/campeonatos}">
+            Campeonatos
+        </a>
+
+        <!-- ÂNCORA PARA FALE CONOSCO -->
+        <a th:href="@{/home#fale-conosco}">
+            Fale Conosco
+        </a>
+
+    </nav>
+
+    <!-- AÇÕES DO USUÁRIO -->
+    <div class="acoes-publico">
+
+        <!-- CRIAR CAMPEONATO -->
+        <a th:href="@{/campeonatos/novo}"
+           class="btn-primary">
+            Criar Campeonato
+        </a>
+
+        <!-- ENTRAR -->
+        <a th:href="@{/login}"
+           class="btn-outline">
+            Entrar
+        </a>
+
+    </div>
+
+</header>
+
+<main class="conteudo-publico">
+    <section th:replace="${content}"></section>
+</main>
+
+<footer class="footer-publico">
+    <p>© 2026 BoraVôlei • Gestão de Campeonatos de Vôlei</p>
+</footer>
+
+</body>
+</html>

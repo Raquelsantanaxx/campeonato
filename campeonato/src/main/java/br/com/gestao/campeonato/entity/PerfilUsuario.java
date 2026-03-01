@@ -4,7 +4,7 @@ public enum PerfilUsuario {
     ADMIN,
     ORGANIZADOR,
     ARBITRO,
-    VISUALIZADOR,
-    JOGADOR
+    JOGADOR,
+    VISUALIZADOR
 }
 

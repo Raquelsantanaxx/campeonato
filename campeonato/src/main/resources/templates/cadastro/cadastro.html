@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="pt-BR"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Criar Conta - BoraVôlei</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" th:href="@{/css/cadastro.css}">
+</head>
+
+<body>
+
+<div class="form-container">
+
+    <h1 class="titulo-pagina">Criar conta</h1>
+
+    <!-- ERRO -->
+    <div class="erro" th:if="${erro}">
+        <p th:text="${erro}"></p>
+    </div>
+
+    <form th:action="@{/cadastro}"
+          th:object="${usuario}"
+          method="post">
+
+        <div class="form-group">
+            <label>Nome</label>
+            <input type="text"
+                   th:field="*{nome}"
+                   placeholder="Seu nome completo"
+                   required>
+        </div>
+
+        <div class="form-group">
+            <label>Email</label>
+            <input type="email"
+                   th:field="*{email}"
+                   placeholder="email@exemplo.com"
+                   required>
+        </div>
+
+        <div class="form-group">
+            <label>Senha</label>
+            <input type="password"
+                   th:field="*{senhaHash}"
+                   placeholder="Digite sua senha"
+                   required>
+        </div>
+
+        <div class="form-actions">
+            <button type="submit" class="btn-primary">
+                Criar conta
+            </button>
+        </div>
+
+    </form>
+
+    <div class="link-login">
+        <span>Já possui conta?</span>
+        <a th:href="@{/login}">Entrar</a>
+    </div>
+
+</div>
+
+</body>
+</html>

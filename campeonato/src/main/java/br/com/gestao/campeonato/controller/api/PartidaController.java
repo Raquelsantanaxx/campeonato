@@ -1,16 +1,18 @@
 package br.com.gestao.campeonato.controller.api;
 
 import br.com.gestao.campeonato.dto.AtualizarResultadoRequest;
+import br.com.gestao.campeonato.dto.RodadaDTO;
 import br.com.gestao.campeonato.entity.Partida;
 import br.com.gestao.campeonato.service.PartidaService;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
 import jakarta.validation.Valid;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
-@RequestMapping("/partida")
+@RequestMapping("/api/partidas")
 public class PartidaController {
 
     private final PartidaService partidaService;
@@ -19,58 +21,68 @@ public class PartidaController {
         this.partidaService = partidaService;
     }
 
-
+    @PreAuthorize("hasAnyRole('ADMIN','ORGANIZADOR')")
     @PostMapping
     public ResponseEntity<Partida> cadastrar(@RequestBody Partida partida) {
-        Partida salva = partidaService.salvar(partida);
-        return ResponseEntity.ok(salva);
+        return ResponseEntity.ok(partidaService.salvar(partida));
     }
 
-
+    @PreAuthorize("hasAnyRole('ADMIN','ORGANIZADOR')")
     @GetMapping
     public ResponseEntity<List<Partida>> listarTodas() {
         return ResponseEntity.ok(partidaService.listarTodos());
     }
 
-
+    @PreAuthorize("permitAll()")
     @GetMapping("/{id}")
     public ResponseEntity<Partida> buscarPorId(@PathVariable Integer id) {
-        Partida partida = partidaService.buscarPorId(id);
-        return ResponseEntity.ok(partida);
+        return ResponseEntity.ok(partidaService.buscarPorId(id));
     }
 
-
-
-
+    @PreAuthorize("permitAll()")
     @GetMapping("/campeonato/{idCampeonato}")
-    public ResponseEntity<List<Partida>> buscarPorCampeonato(@PathVariable Integer idCampeonato) {
+    public ResponseEntity<List<Partida>> buscarPorCampeonato(
+            @PathVariable Integer idCampeonato) {
         return ResponseEntity.ok(partidaService.buscarPorCampeonato(idCampeonato));
     }
 
-
+    @PreAuthorize("isAuthenticated()")
     @GetMapping("/equipe/{idEquipe}")
-    public ResponseEntity<List<Partida>> buscarPorEquipe(@PathVariable Integer idEquipe) {
+    public ResponseEntity<List<Partida>> buscarPorEquipe(
+            @PathVariable Integer idEquipe) {
         return ResponseEntity.ok(partidaService.buscarPorEquipe(idEquipe));
     }
 
-
+    @PreAuthorize("hasAnyRole('ADMIN','ORGANIZADOR')")
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deletar(@PathVariable Integer id) {
         partidaService.deletar(id);
         return ResponseEntity.noContent().build();
     }
+
+    @PreAuthorize("hasAnyRole('ADMIN','ORGANIZADOR','ARBITRO')")
     @PutMapping("/{id}/resultado")
     public ResponseEntity<Partida> atualizarResultado(
             @PathVariable Integer id,
             @RequestBody @Valid AtualizarResultadoRequest request) {
 
-        Partida partida = partidaService.atualizarResultadoManual(
-                id,
-                request.getNovoResultado(),
-                request.getUsuarioId()
+        return ResponseEntity.ok(
+                partidaService.atualizarResultadoManual(
+                        id,
+                        request.getNovoResultado(),
+                        request.getUsuarioId()
+                )
         );
+    }
 
-        return ResponseEntity.ok(partida);
+    @PreAuthorize("hasAnyRole('ADMIN','ORGANIZADOR')")
+    @GetMapping("/campeonato/{id}/rodadas")
+    public ResponseEntity<List<RodadaDTO>> gerarRodadas(
+            @PathVariable Integer id) {
+
+        return ResponseEntity.ok(
+                partidaService.gerarRodadasPontosCorridos(id)
+        );
     }
 }
 
