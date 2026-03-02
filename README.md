@@ -29,7 +29,7 @@ No MySQL, execute:
 
 CREATE DATABASE campeonatosesportivosvolei;
 
-## # Configuração de conexão com o banco de dados
+# Configuração de conexão com o banco de dados
 spring.datasource.url=jdbc:mysql://localhost:3306/campeonatosesportivosvolei
 spring.datasource.username=SEU_USUARIO
 spring.datasource.password=SUA_SENHA
