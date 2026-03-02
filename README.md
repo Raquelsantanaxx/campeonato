@@ -42,3 +42,9 @@ spring.datasource.password=SUA_SENHA
 spring.jpa.hibernate.ddl-auto=update
 spring.jpa.show-sql=true
 
+
+## 5. Acessar o Sistema
+
+Após iniciar a aplicação, acessar:
+
+http://localhost:8080
