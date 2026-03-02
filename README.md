@@ -27,7 +27,7 @@ Antes de executar, é necessário ter instalado:
 
 No MySQL, execute:
 
-### CREATE DATABASE campeonatosesportivosvolei;
+CREATE DATABASE campeonatosesportivosvolei;
 
 # Configurar o application.properties
 
