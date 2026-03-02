@@ -43,8 +43,20 @@ spring.jpa.hibernate.ddl-auto=update
 spring.jpa.show-sql=true
 
 
-## 5. Acessar o Sistema
+## Acessar o Sistema
 
 Após iniciar a aplicação, acessar:
 
 http://localhost:8080
+
+## Tecnologias Utilizadas
+Tecnologia	                 Função
+Java 17	                    Linguagem principal
+Spring Boot                  3.3.5	Framework
+Spring Data JPA	             Persistência
+Hibernate	                   ORM
+Spring Security	             Autenticação
+Thymeleaf	                   Renderização HTML
+MySQL	                       Banco de dados
+Maven	                       Gerenciador de dependências
+Tomcat Embedded	             Servidor interno
