@@ -15,11 +15,6 @@ O sistema permite realizar as seguintes operações:
 * **Registro de resultados por sets** (ex: 3x2).
 * **Cálculo automático de classificação**.
 
----
-# 🏐 Sistema de Gestão de Campeonatos de Vôlei
-
-Projeto acadêmico desenvolvido com **Java 17 + Spring Boot**, com foco no gerenciamento de campeonatos amadores de voleibol.
-
 ## 📌 Objetivo
 O sistema permite realizar as seguintes operações:
 * **Cadastro e login de usuários**.
@@ -32,7 +27,7 @@ O sistema permite realizar as seguintes operações:
 
 ---
 
-## 🚀 Como Executar o Projeto
+## Como Executar o Projeto
 
 ### 🔧 1. Pré-requisitos
 Antes de executar, é necessário ter instalado:
@@ -48,8 +43,8 @@ CREATE DATABASE campeonatosesportivosvolei;
 
 # Configuração de conexão com o banco de dados
 spring.datasource.url=jdbc:mysql://localhost:3306/campeonatosesportivosvolei
-spring.datasource.username=SEU_USUARIO
-spring.datasource.password=SUA_SENHA
+spring.datasource.username=SEU_USUARIO -- recomendo usar root 
+spring.datasource.password=SUA_SENHA -- recomendo usar root 
 
 # Configurações do Hibernate/JPA
 spring.jpa.hibernate.ddl-auto=update
