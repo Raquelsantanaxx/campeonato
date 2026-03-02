@@ -29,15 +29,12 @@ No MySQL, execute:
 
 CREATE DATABASE campeonatosesportivosvolei;
 
-# Configuração de conexão com o banco de dados
-spring.datasource.url=jdbc:mysql://localhost:3306/campeonatosesportivosvolei
-spring.datasource.username=SEU_USUARIO
-spring.datasource.password=SUA_SENHA
+# Configurar o application.properties
 
-# Configurações do Hibernate/JPA
-spring.jpa.hibernate.ddl-auto=update
-spring.jpa.show-sql=true
+No arquivo:
+src/main/resources/application.properties
 
+coloque seu usuario e senha - recomendo suar o root root 
 spring.datasource.url=jdbc:mysql://localhost:3306/campeonatosesportivosvolei
 spring.datasource.username=SEU_USUARIO
 spring.datasource.password=SUA_SENHA
