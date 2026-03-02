@@ -5,7 +5,7 @@ O sistema tem como objetivo gerenciar campeonatos  inicialmente na modalidade de
 
 **Java 17 + Spring Boot**, com foco no gerenciamento de campeonatos amadores de voleibol.
 
-## 📌 Objetivo
+## O que o sistema faz
 O sistema permite realizar as seguintes operações:
 * **Cadastro e login de usuários**.
 * **Cadastro de campeonatos**.
