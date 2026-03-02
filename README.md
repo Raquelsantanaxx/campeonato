@@ -38,7 +38,8 @@ spring.datasource.password=SUA_SENHA -- recomendo usar root
 spring.jpa.hibernate.ddl-auto=update
 spring.jpa.show-sql=true
 
-5. Acessar o Sistema
+
+###Acessar o Sistema
 
 Após iniciar a aplicação, acessar:
 
