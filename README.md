@@ -15,18 +15,6 @@ O sistema permite realizar as seguintes operações:
 * **Registro de resultados por sets** (ex: 3x2).
 * **Cálculo automático de classificação**.
 
-## 📌 Objetivo
-O sistema permite realizar as seguintes operações:
-* **Cadastro e login de usuários**.
-* **Cadastro de campeonatos**.
-* **Cadastro de equipes**.
-* **Cadastro de jogadores**.
-* **Geração automática de partidas** (modelo de pontos corridos).
-* **Registro de resultados por sets** (ex: 3x2).
-* **Cálculo automático de classificação**.
-
----
-
 ## Como Executar o Projeto
 
 ### 🔧 1. Pré-requisitos
