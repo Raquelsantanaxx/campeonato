@@ -23,16 +23,24 @@ Antes de executar, é necessário ter instalado:
 * **Maven**.
 * **MySQL 8+**.
 
-### 🗄️ 2. Criar o Banco de Dados
-No seu terminal MySQL ou Workbench, execute:
-```sql CREATE DATABASE campeonatosesportivosvolei;
-# Configuração de conexão com o banco de dados
+## 🗄 2. Criar o Banco de Dados
+
+No MySQL, execute:
+
+CREATE DATABASE campeonatosesportivosvolei;
+
+## ⚙️ 3. Configurar o application.properties
+
+No arquivo:
+
+src/main/resources/application.properties
+
+Configure com seu usuário e senha:
+
 spring.datasource.url=jdbc:mysql://localhost:3306/campeonatosesportivosvolei
 spring.datasource.username=SEU_USUARIO
 spring.datasource.password=SUA_SENHA
 
-# Configurações do Hibernate/JPA
 spring.jpa.hibernate.ddl-auto=update
 spring.jpa.show-sql=true
-
 
