@@ -73,5 +73,5 @@ O projeto foi construído utilizando as seguintes tecnologias
 | **DBA (Banco de Dados)** | Danilo Morais de Azevedo e Raquel Santana de Souza |
 | **Back-end** | Raquel Santana de Souza |
 | **Front-end** | Raquel Santana de Souza |
-| **UX (Interface)** | Kallel Garcez Torres |
-| **Documentação** | Luani Vanderlea Piedade Pereira e Caian Aiury da Cunha Carvalho |
+| **UX (Interface)** | Kallel Garcez Torres e Luani Vanderlea Piedade Pereira e |
+| **Documentação** | Caian Aiury da Cunha Carvalho |
