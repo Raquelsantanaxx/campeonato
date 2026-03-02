@@ -23,9 +23,10 @@ public interface PartidaService {
                                      String novoResultado,
                                      Integer usuarioId);
 
-    void gerarPartidasPontosCorridos(Integer campeonatoId);
+    void gerarPartidasPontosCorridos(Integer campeonatoId, String emailUsuario);
 
     void gerarPartidasMataMata(Integer campeonatoId);
+    List<RodadaDTO> listarRodadasPorCampeonato(Integer campeonatoId);
     List<RodadaDTO> gerarRodadasPontosCorridos(Integer campeonatoId);
 }
 

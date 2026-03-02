@@ -1,0 +1,146 @@
+/* ============================= */
+/* PÁGINA CLASSIFICAÇÃO */
+/* ============================= */
+
+.partidas-page {
+    padding: 20px;
+}
+
+/* ============================= */
+/* CONTAINER */
+/* ============================= */
+
+.card-container {
+    background: white;
+    padding: 25px;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+}
+
+/* ============================= */
+/* TOPO */
+/* ============================= */
+
+.topo-lista {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.subtitulo {
+    font-size: 14px;
+    color: #777;
+}
+
+/* ============================= */
+/* TABELA */
+/* ============================= */
+
+.tabela-partidas {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 15px;
+    font-size: 14px;
+}
+
+/* CABEÇALHO */
+.tabela-partidas thead th {
+    background: #ff6a00;
+    color: white;
+    padding: 14px 12px;
+    text-align: left;
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 13px;
+    letter-spacing: 0.5px;
+    white-space: nowrap;
+}
+
+/* CORPO */
+.tabela-partidas tbody td {
+    padding: 12px;
+    border-bottom: 1px solid #eee;
+    vertical-align: middle;
+}
+
+/* LINHA HOVER */
+.tabela-partidas tbody tr:hover {
+    background: #fff4eb;
+}
+
+/* CENTRALIZAR COLUNAS NUMÉRICAS (a partir da 3ª coluna) */
+.tabela-partidas td:nth-child(n+3),
+.tabela-partidas th:nth-child(n+3) {
+    text-align: center;
+}
+
+/* ============================= */
+/* DESTAQUE PONTOS */
+/* ============================= */
+
+.col-pontos {
+    font-weight: 700;
+    color: #ff6a00;
+}
+
+/* ============================= */
+/* PODIUM */
+/* ============================= */
+
+.linha-ouro {
+    background-color: #fff8dc;
+    font-weight: 600;
+}
+
+.linha-prata {
+    background-color: #f1f5f9;
+    font-weight: 600;
+}
+
+.linha-bronze {
+    background-color: #fef3c7;
+    font-weight: 600;
+}
+
+/* ============================= */
+/* POSIÇÃO */
+/* ============================= */
+
+.col-posicao {
+    font-weight: 700;
+    font-size: 15px;
+}
+
+/* ============================= */
+/* BOTÃO VOLTAR */
+/* ============================= */
+
+.btn-voltar {
+    background: #e5e7eb;
+    color: #374151;
+    padding: 8px 14px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 500;
+    transition: 0.2s;
+    display: inline-block;
+    margin-top: 20px;
+}
+
+.btn-voltar:hover {
+    background: #d1d5db;
+}
+
+/* ============================= */
+/* ESTADO VAZIO */
+/* ============================= */
+
+.estado-vazio {
+    padding: 20px;
+    background: #fff4eb;
+    border-radius: 8px;
+    font-size: 14px;
+    color: #555;
+    margin-top: 15px;
+}

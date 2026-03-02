@@ -31,17 +31,12 @@ public class ClassificacaoServiceImpl implements ClassificacaoService {
     @Override
     public List<ClassificacaoEquipeDTO> gerarClassificacao(Integer campeonatoId) {
 
-        // Buscar dados
         List<Equipe> listaEquipes = equipeRepository.findByCampeonatoId(campeonatoId);
         List<Partida> listaPartidas = partidaRepository.findByCampeonatoId(campeonatoId);
 
-        // Lista final
         List<ClassificacaoEquipeDTO> classificacao = new ArrayList<>();
 
-        // LOOP DAS EQUIPES
-        for (int i = 0; i < listaEquipes.size(); i++) {
-
-            Equipe equipeAtual = listaEquipes.get(i);
+        for (Equipe equipeAtual : listaEquipes) {
 
             ClassificacaoEquipeDTO dto = new ClassificacaoEquipeDTO();
 
@@ -57,28 +52,15 @@ public class ClassificacaoServiceImpl implements ClassificacaoService {
             int pontosPro = 0;
             int pontosContra = 0;
 
-            // LOOP DAS PARTIDAS
-            for (int j = 0; j < listaPartidas.size(); j++) {
+            for (Partida partidaAtual : listaPartidas) {
 
-                Partida partidaAtual = listaPartidas.get(j);
+                if (Boolean.TRUE.equals(partidaAtual.getFinalizada())) {
 
-                // só conta partida finalizada
-                if (partidaAtual.getFinalizada() == true) {
+                    boolean equipeParticipou =
+                            partidaAtual.getEquipeMandante().getId().equals(equipeAtual.getId())
+                                    || partidaAtual.getEquipeVisitante().getId().equals(equipeAtual.getId());
 
-                    boolean equipeParticipou = false;
-
-                    // verificar se é mandante
-                    if (partidaAtual.getEquipeMandante().getId().equals(equipeAtual.getId())) {
-                        equipeParticipou = true;
-                    }
-
-                    // verificar se é visitante
-                    if (partidaAtual.getEquipeVisitante().getId().equals(equipeAtual.getId())) {
-                        equipeParticipou = true;
-                    }
-
-                    // se participou
-                    if (equipeParticipou == true) {
+                    if (equipeParticipou) {
 
                         jogos++;
 
@@ -88,21 +70,15 @@ public class ClassificacaoServiceImpl implements ClassificacaoService {
                         int setsEquipe = 0;
                         int setsAdversario = 0;
 
-                        // LOOP DOS SETS
-                        for (int k = 0; k < listaSets.size(); k++) {
+                        boolean equipeMandante =
+                                partidaAtual.getEquipeMandante().getId().equals(equipeAtual.getId());
 
-                            SetPartida setAtual = listaSets.get(k);
-
-                            boolean equipeMandante = false;
-
-                            if (partidaAtual.getEquipeMandante().getId().equals(equipeAtual.getId())) {
-                                equipeMandante = true;
-                            }
+                        for (SetPartida setAtual : listaSets) {
 
                             int meusPontos;
                             int pontosOponente;
 
-                            if (equipeMandante == true) {
+                            if (equipeMandante) {
                                 meusPontos = setAtual.getPontosMandante();
                                 pontosOponente = setAtual.getPontosVisitante();
                             } else {
@@ -110,8 +86,8 @@ public class ClassificacaoServiceImpl implements ClassificacaoService {
                                 pontosOponente = setAtual.getPontosMandante();
                             }
 
-                            pontosPro = pontosPro + meusPontos;
-                            pontosContra = pontosContra + pontosOponente;
+                            pontosPro += meusPontos;
+                            pontosContra += pontosOponente;
 
                             if (meusPontos > pontosOponente) {
                                 setsEquipe++;
@@ -120,38 +96,31 @@ public class ClassificacaoServiceImpl implements ClassificacaoService {
                             }
                         }
 
-                        setsPro = setsPro + setsEquipe;
-                        setsContra = setsContra + setsAdversario;
+                        setsPro += setsEquipe;
+                        setsContra += setsAdversario;
 
-                        // vitória ou derrota
                         if (setsEquipe > setsAdversario) {
                             vitorias++;
                         } else {
                             derrotas++;
                         }
 
-                        // pontuação oficial
-                        int pontosClassificacaoPartida = 0;
+                        int pontosPartida = 0;
 
                         if (setsEquipe > setsAdversario) {
-
                             if (setsEquipe == 3 && setsAdversario <= 1) {
-                                pontosClassificacaoPartida = 3;
+                                pontosPartida = 3;
+                            } else if (setsEquipe == 3 && setsAdversario == 2) {
+                                pontosPartida = 2;
                             }
-
-                            if (setsEquipe == 3 && setsAdversario == 2) {
-                                pontosClassificacaoPartida = 2;
-                            }
-
                         } else {
-
                             if (setsAdversario == 3 && setsEquipe == 2) {
-                                pontosClassificacaoPartida = 1;
+                                pontosPartida = 1;
                             }
                         }
 
                         dto.setPontosClassificacao(
-                                dto.getPontosClassificacao() + pontosClassificacaoPartida
+                                dto.getPontosClassificacao() + pontosPartida
                         );
                     }
                 }
@@ -168,7 +137,14 @@ public class ClassificacaoServiceImpl implements ClassificacaoService {
             classificacao.add(dto);
         }
 
-        // ORDENAÇÃO MANUAL
+        // ================================
+        // ORDENAÇÃO PROFISSIONAL
+        // ================================
+
+        // ================================
+// ORDENAÇÃO PROFISSIONAL
+// ================================
+
         for (int i = 0; i < classificacao.size(); i++) {
 
             for (int j = i + 1; j < classificacao.size(); j++) {
@@ -184,20 +160,33 @@ public class ClassificacaoServiceImpl implements ClassificacaoService {
 
                 boolean trocar = false;
 
+                // 1️⃣ Pontos
                 if (b.getPontosClassificacao() > a.getPontosClassificacao()) {
                     trocar = true;
                 }
+
+                // 2️⃣ Vitórias
                 else if (b.getPontosClassificacao() == a.getPontosClassificacao()
+                        && b.getVitorias() > a.getVitorias()) {
+                    trocar = true;
+                }
+
+                // 3️⃣ Saldo de Sets
+                else if (b.getPontosClassificacao() == a.getPontosClassificacao()
+                        && b.getVitorias() == a.getVitorias()
                         && saldoSetsB > saldoSetsA) {
                     trocar = true;
                 }
+
+                // 4️⃣ Saldo de Pontos
                 else if (b.getPontosClassificacao() == a.getPontosClassificacao()
+                        && b.getVitorias() == a.getVitorias()
                         && saldoSetsB == saldoSetsA
                         && saldoPontosB > saldoPontosA) {
                     trocar = true;
                 }
 
-                if (trocar == true) {
+                if (trocar) {
                     classificacao.set(i, b);
                     classificacao.set(j, a);
                 }

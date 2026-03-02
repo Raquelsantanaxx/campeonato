@@ -6,16 +6,22 @@
 
     <div class="card-container">
 
-        <!-- TOPO -->
         <div class="topo-lista">
             <div>
                 <h2>Partidas</h2>
-                <p class="subtitulo">Gerencie as partidas do campeonato</p>
+                <p class="subtitulo">Partidas do campeonato</p>
             </div>
 
-            <a th:href="@{/partidas/nova}" class="btn-novo">
-                + Nova Partida
-            </a>
+            <!-- BOTÕES DIREITA -->
+            <div class="acoes-topo">
+
+                <!-- BOTÃO VOLTAR -->
+                <a th:href="@{/campeonatos/{id}(id=${campeonatoId})}"
+                   class="btn-nova-equipe">
+                    ← Voltar
+                </a>
+
+            </div>
         </div>
 
         <!-- TABELA -->
@@ -25,10 +31,10 @@
             <tr>
                 <th>Data</th>
                 <th>Mandante</th>
-                <th>Resultado</th>
                 <th>Visitante</th>
+                <th>Resultado</th>
                 <th>Status</th>
-                <th class="acoes-tabela">Ações</th>
+                <th class="acoes-tabela">Ação</th>
             </tr>
             </thead>
 
@@ -39,34 +45,38 @@
 
                 <td th:text="${p.equipeMandante.nome}"></td>
 
-                <td th:text="${p.resultadoFinal != null ? p.resultadoFinal : 'x'}"></td>
-
                 <td th:text="${p.equipeVisitante.nome}"></td>
 
                 <td>
+                    <span th:if="${p.finalizada}"
+                          th:text="${p.resultadoFinal}">
+                    </span>
+
+                    <span th:if="${!p.finalizada}">
+                        Em andamento
+                    </span>
+                </td>
+
+                <td>
                     <span class="status"
-                          th:text="${p.finalizada} ? 'Finalizada' : 'Agendada'"
+                          th:text="${p.finalizada} ? 'Finalizada' : 'Em andamento'"
                           th:classappend="${p.finalizada} ? ' status-ativo' : ' status-inativo'">
                     </span>
                 </td>
 
                 <td class="acoes-tabela">
-                    <a th:href="@{/partidas/editar/{id}(id=${p.id})}"
-                       class="btn-acao btn-editar">Editar</a>
-
-                    <a th:if="${!p.finalizada}"
-                       th:href="@{/partidas/finalizar/{id}(id=${p.id})}"
-                       class="btn-acao btn-excluir">
-                        Finalizar
+                    <a th:href="@{/partidas/{id}(id=${p.id})}"
+                       class="btn-acao btn-editar">
+                        Insira os sets aqui
                     </a>
-
+                </td>
 
             </tr>
             </tbody>
+
         </table>
 
     </div>
 
 </section>
 </html>
-

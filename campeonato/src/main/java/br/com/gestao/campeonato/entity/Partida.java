@@ -44,4 +44,7 @@ public class Partida {
     @Column(nullable = false)
     private Boolean finalizada = false;
 
+    @Column(name = "numero_rodada")
+    private Integer numeroRodada;
+
 }

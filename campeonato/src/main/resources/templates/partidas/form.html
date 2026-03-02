@@ -17,17 +17,6 @@
 
         <form th:action="@{/partidas}" method="post" class="form">
 
-            <div class="campo">
-                <label>Campeonato</label>
-                <select name="campeonato.id" required>
-                    <option value="">Selecione</option>
-                    <option th:each="c : ${campeonatos}"
-                            th:value="${c.id}"
-                            th:text="${c.nome}">
-                    </option>
-                </select>
-            </div>
-
             <div class="linha">
                 <div class="campo">
                     <label>Mandante</label>

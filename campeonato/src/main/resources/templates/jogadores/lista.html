@@ -2,38 +2,92 @@
 <html xmlns:th="http://www.thymeleaf.org"
       th:replace="~{base-privado :: layout(~{::section})}">
 
-<section>
-    <link rel="stylesheet" th:href="@{/css/jogadores-lista.css}">
-    <div class="container">
+<section class="lista-container">
 
-        <div class="topo">
-            <h2>Jogadores</h2>
-            <a href="/jogadores/novo" class="btn-novo">
-                + Novo Jogador
-            </a>
+    <div class="lista-header">
+        <div>
+            <h2>🏐 Jogadores</h2>
+
+            <!-- Se estiver filtrando por equipe -->
+            <p class="subtitulo"
+               th:if="${equipe != null}"
+               th:text="'Equipe: ' + ${equipe.nome}">
+            </p>
+
+            <!-- Se for lista geral -->
+            <p class="subtitulo"
+               th:if="${equipe == null}">
+                Todos os jogadores cadastrados
+            </p>
         </div>
 
-        <table>
-            <thead>
-            <tr>
-                <th>Nome</th>
-                <th>Número</th>
-                <th>Posição</th>
-                <th>Equipe</th>
-            </tr>
-            </thead>
+        <div style="display:flex; gap:10px; align-items:center;">
 
-            <tbody>
-            <tr th:each="j : ${jogadores}">
-                <td th:text="${j.nome}"></td>
-                <td th:text="${j.numeroCamisa}"></td>
-                <td th:text="${j.posicao}"></td>
-                <td th:text="${j.equipe.nome}"></td>
-            </tr>
-            </tbody>
-        </table>
+            <!-- BOTÃO VOLTAR PARA EQUIPE -->
+            <a th:if="${equipe != null}"
+               th:href="@{/equipes/campeonato/{id}(id=${equipe.campeonato.id})}"
+               class="btn-nova-equipe">
+                ← Voltar
+            </a>
 
+            <!-- NOVO JOGADOR -->
+            <a th:if="${equipe != null
+                   and usuarioLogado != null
+                   and usuarioLogado == equipe.campeonato.organizador.email}"
+               th:href="@{/jogadores/novo/{id}(id=${equipe.id})}"
+               class="btn-nova-equipe">
+                + Novo Jogador
+            </a>
+
+        </div>
     </div>
 
+    <!-- ESTADO VAZIO -->
+    <div th:if="${#lists.isEmpty(jogadores)}" class="estado-vazio">
+        Nenhum jogador cadastrado.
+    </div>
+
+    <table th:if="${!#lists.isEmpty(jogadores)}"
+           class="tabela-equipes">
+
+        <thead>
+        <tr>
+            <th>Nome</th>
+            <th>Número</th>
+            <th>Posição</th>
+            <th class="acoes-tabela">Ações</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        <tr th:each="jogador : ${jogadores}">
+            <td th:text="${jogador.nome}"></td>
+            <td th:text="${jogador.numeroCamisa}"></td>
+            <td th:text="${jogador.posicao}"></td>
+
+            <td class="acoes-tabela"
+                th:if="${usuarioLogado != null
+                       and usuarioLogado == jogador.equipe.campeonato.organizador.email}">
+
+                <a th:href="@{/jogadores/editar/{id}(id=${jogador.id})}"
+                   class="btn-acao btn-editar">
+                    Editar
+                </a>
+
+                <form th:action="@{/jogadores/excluir/{id}(id=${jogador.id})}"
+                      method="post"
+                      style="display:inline;">
+                    <button type="submit" class="btn-acao btn-excluir">
+                        Excluir
+                    </button>
+                </form>
+
+            </td>
+        </tr>
+        </tbody>
+
+    </table>
+
 </section>
+
 </html>

@@ -3,19 +3,16 @@ package br.com.gestao.campeonato.service;
 import br.com.gestao.campeonato.entity.Jogador;
 
 import java.util.List;
-import java.util.Optional;
 
 public interface JogadorService {
 
-    Jogador salvar(Jogador jogador );
+    Jogador salvar(Jogador jogador, String emailUsuario);
 
-    List<Jogador> listarTodos ();
+    List<Jogador> listarTodos();
 
-    Optional<Jogador> buscarPorId (Integer id);
+    Jogador buscarPorId(Integer id);
 
-    List<Jogador> listarPorEquipe (Integer idEquipe);
+    List<Jogador> listarPorEquipe(Integer idEquipe);
 
-    void deletar(Integer id);
-
-
+    void deletar(Integer id, String emailUsuario);
 }

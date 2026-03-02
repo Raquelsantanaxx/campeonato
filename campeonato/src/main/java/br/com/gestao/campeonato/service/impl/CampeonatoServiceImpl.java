@@ -4,6 +4,7 @@ import br.com.gestao.campeonato.entity.Campeonato;
 import br.com.gestao.campeonato.entity.Formatocampeonato;
 import br.com.gestao.campeonato.entity.Usuario;
 import br.com.gestao.campeonato.repository.CampeonatoRepository;
+import br.com.gestao.campeonato.repository.PartidaRepository;
 import br.com.gestao.campeonato.repository.UsuarioRepository;
 import br.com.gestao.campeonato.service.CampeonatoService;
 import br.com.gestao.campeonato.service.EquipeService;
@@ -19,15 +20,36 @@ public class CampeonatoServiceImpl implements CampeonatoService {
     private final EquipeService equipeService;
     private final PartidaService partidaService;
     private final UsuarioRepository usuarioRepository;
+    private final PartidaRepository partidaRepository;
 
     public CampeonatoServiceImpl(CampeonatoRepository campeonatoRepository,
                                  EquipeService equipeService,
                                  PartidaService partidaService,
-                                 UsuarioRepository usuarioRepository) {
+                                 UsuarioRepository usuarioRepository,
+                                 PartidaRepository partidaRepository) {
+
         this.campeonatoRepository = campeonatoRepository;
         this.equipeService = equipeService;
         this.partidaService = partidaService;
         this.usuarioRepository = usuarioRepository;
+        this.partidaRepository = partidaRepository;
+    }
+    @Override
+    public void gerarPartidas(Integer campeonatoId, String emailUsuario) {
+
+        Campeonato campeonato = buscarPorId(campeonatoId);
+
+        validarDono(campeonato, emailUsuario);
+
+        if (campeonato.getIniciado()) {
+            throw new RuntimeException("Não é possível gerar partidas após o campeonato iniciado.");
+        }
+
+        if (!partidaRepository.findByCampeonatoId(campeonatoId).isEmpty()) {
+            throw new RuntimeException("As partidas já foram geradas para este campeonato.");
+        }
+
+        partidaService.gerarPartidasPontosCorridos(campeonatoId, emailUsuario);
     }
 
     // ===============================
@@ -102,37 +124,24 @@ public class CampeonatoServiceImpl implements CampeonatoService {
     // INICIAR (SOMENTE DONO)
     // ===============================
     @Override
-    public void iniciarCampeonato(Integer campeonatoId,
-                                  String emailUsuario) {
+    public void iniciarCampeonato(Integer id, String emailUsuario) {
 
-        Campeonato campeonato = buscarPorId(campeonatoId);
+        Campeonato campeonato = buscarPorId(id);
 
-        validarDono(campeonato, emailUsuario);
+        if (!campeonato.getOrganizador().getEmail().equals(emailUsuario)) {
+            throw new RuntimeException("Você não pode iniciar este campeonato.");
+        }
+
+        if (campeonato.getIniciado()) {
+            throw new RuntimeException("Campeonato já iniciado.");
+        }
 
         if (!campeonato.getAtivo()) {
             throw new RuntimeException("Campeonato está inativo.");
         }
 
-        if (campeonato.getIniciado()) {
-            throw new RuntimeException("Campeonato já foi iniciado.");
-        }
-
-        int quantidadeEquipes =
-                equipeService.listarPorCampeonato(campeonatoId).size();
-
-        if (quantidadeEquipes < 2) {
-            throw new RuntimeException(
-                    "O campeonato precisa de pelo menos 2 equipes."
-            );
-        }
-
-        if (campeonato.getFormato() == Formatocampeonato.PONTOS_CORRIDOS) {
-            partidaService.gerarPartidasPontosCorridos(campeonatoId);
-        } else if (campeonato.getFormato() == Formatocampeonato.MATA_MATA) {
-            partidaService.gerarPartidasMataMata(campeonatoId);
-        }
-
         campeonato.setIniciado(true);
+
         campeonatoRepository.save(campeonato);
     }
 
@@ -182,5 +191,6 @@ public class CampeonatoServiceImpl implements CampeonatoService {
                     "Você não tem permissão para alterar este campeonato."
             );
         }
+
     }
 }

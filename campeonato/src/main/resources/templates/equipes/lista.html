@@ -1,54 +1,107 @@
 <div xmlns:th="http://www.thymeleaf.org"
      th:replace="~{base-privado :: layout(~{::section})}">
 
-<section class="lista-container">
+    <section class="lista-container">
 
-    <div class="lista-header">
-        <div>
-            <h2>👥Equipes</h2>
-            <p class="subtitulo">Gerencie as equipes cadastradas</p>
+        <div class="lista-header">
+            <div>
+                <h2>👥 Equipes</h2>
+
+                <!-- MOSTRA NOME DO CAMPEONATO SE EXISTIR -->
+                <p class="subtitulo"
+                   th:if="${campeonato != null}"
+                   th:text="'Campeonato: ' + ${campeonato.nome}">
+                </p>
+            </div>
+
+            <div style="display:flex; gap:10px;">
+
+                <!-- BOTÃO VOLTAR (SÓ SE EXISTIR CAMPEONATO) -->
+                <a th:if="${campeonato != null}"
+                   th:href="@{/campeonatos/{id}(id=${campeonato.id})}"
+                   class="btn-nova-equipe">
+                    ← Voltar
+                </a>
+
+                <!-- NOVA EQUIPE (SÓ SE EXISTIR CAMPEONATO E FOR ORGANIZADOR) -->
+                <a th:if="${campeonato != null
+                      and usuarioLogado != null
+                      and usuarioLogado == campeonato.organizador.email}"
+                   th:href="@{/equipes/novo/{id}(id=${campeonato.id})}"
+                   class="btn-nova-equipe">
+                    + Nova Equipe
+                </a>
+
+            </div>
         </div>
 
-        <a th:href="@{/equipes/novo}" class="btn-nova-equipe">
-            + Nova Equipe
-        </a>
-    </div>
+        <!-- CASO NÃO TENHA EQUIPES -->
+        <div th:if="${equipes == null or equipes.isEmpty()}" class="estado-vazio">
+            Nenhuma equipe cadastrada.
+        </div>
 
-    <div th:if="${equipes.size() == 0}" class="estado-vazio">
-        Nenhuma equipe cadastrada. Clique em <strong>Nova Equipe</strong> para começar.
-    </div>
+        <!-- TABELA -->
+        <table th:if="${equipes != null and !equipes.isEmpty()}" class="tabela-equipes">
+            <thead>
+            <tr>
+                <th>Equipe</th>
+                <th>Sigla</th>
+                <th>Campeonato</th>
+                <th>Cores</th>
+                <th class="acoes-tabela">Ações</th>
+            </tr>
+            </thead>
 
-    <table th:if="${equipes.size() > 0}" class="tabela-equipes">
-        <thead>
-        <tr>
-            <th>Equipe</th>
-            <th>Sigla</th>
-            <th>Campeonato</th>
-            <th>Cores</th>
-            <th class="acoes-tabela">Ações</th>
-        </tr>
-        </thead>
+            <tbody>
+            <tr th:each="equipe : ${equipes}">
+                <td class="nome-equipe" th:text="${equipe.nome}"></td>
+                <td th:text="${equipe.sigla}"></td>
 
-        <tbody>
-        <tr th:each="equipe : ${equipes}">
-            <td class="nome-equipe" th:text="${equipe.nome}"></td>
-            <td th:text="${equipe.sigla}"></td>
-            <td th:text="${equipe.campeonato.nome}"></td>
+                <!-- PROTEÇÃO CASO CAMPEONATO SEJA NULL -->
+                <td th:text="${equipe.campeonato != null ? equipe.campeonato.nome : 'Sem campeonato'}"></td>
 
-            <td>
-        <span class="cor-bolinha"
-              th:style="'background:' + ${equipe.corPrimaria}"></span>
+                <td>
                 <span class="cor-bolinha"
-                      th:style="'background:' + ${equipe.corSecundaria}"></span>
-            </td>
+                      th:if="${equipe.corPrimaria != null}"
+                      th:style="'background:' + ${equipe.corPrimaria}">
+                </span>
 
-            <td class="acoes-tabela">
-                <a href="#" class="btn-acao btn-editar">Editar</a>
-                <a href="#" class="btn-acao btn-excluir">Excluir</a>
-            </td>
-        </tr>
-        </tbody>
-    </table>
+                    <span class="cor-bolinha"
+                          th:if="${equipe.corSecundaria != null}"
+                          th:style="'background:' + ${equipe.corSecundaria}">
+                </span>
+                </td>
 
-</section>
+                <!-- AÇÕES -->
+                <td class="acoes-tabela"
+                    th:if="${usuarioLogado != null
+                        and equipe.campeonato != null
+                        and usuarioLogado == equipe.campeonato.organizador.email}">
+
+                    <a th:href="@{/equipes/editar/{id}(id=${equipe.id})}"
+                       class="btn-acao btn-editar">
+                        Editar
+                    </a>
+
+                    <form th:action="@{/equipes/excluir/{id}(id=${equipe.id})}"
+                          method="post"
+                          style="display:inline;">
+                        <button type="submit" class="btn-acao btn-excluir">
+                            Excluir
+                        </button>
+                    </form>
+
+                    <a th:href="@{/jogadores/equipe/{id}(id=${equipe.id})}"
+                       class="btn-acao btn-jogador"
+                       title="Gerenciar Jogadores">
+                        👤
+                    </a>
+
+                </td>
+
+            </tr>
+            </tbody>
+        </table>
+
+    </section>
 </div>

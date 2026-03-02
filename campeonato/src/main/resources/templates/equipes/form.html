@@ -7,7 +7,7 @@
 
         <div class="form-header">
             <div>
-                <h2>Cadastrar Equipe</h2>
+                <h2> 👥 Cadastrar Equipe</h2>
                 <p class="subtitulo">Preencha os dados da equipe</p>
             </div>
 
@@ -18,6 +18,9 @@
               th:object="${equipe}"
               method="post"
               class="form">
+
+            <!-- ESSENCIAL PARA UPDATE -->
+            <input type="hidden" th:field="*{id}" />
 
             <div class="campo">
                 <label>Nome da Equipe *</label>
@@ -32,7 +35,7 @@
 
                 <div class="campo">
                     <label>Campeonato *</label>
-                    <select th:field="*{campeonato}" required>
+                    <select th:field="*{campeonato.id}" required>
                         <option value="">Selecione...</option>
                         <option th:each="camp : ${campeonatos}"
                                 th:value="${camp.id}"

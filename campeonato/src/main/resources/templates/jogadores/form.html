@@ -2,60 +2,68 @@
 <html xmlns:th="http://www.thymeleaf.org"
       th:replace="~{base-privado :: layout(~{::section})}">
 
-<section>
+<section class="form-container">
 
-    <link rel="stylesheet" th:href="@{/css/jogadores-form.css}">
+    <div class="form-card">
 
-    <div class="container-form">
+        <div class="form-header">
+            <div>
+                <h2 th:text="${jogador.id != null} ?
+                    'Editar Jogador' : 'Cadastrar Jogador'">
+                </h2>
+                <p class="subtitulo">Informe os dados do jogador</p>
+            </div>
 
-        <h2>Novo Jogador</h2>
+            <a th:href="@{/jogadores/equipe/{id}(id=${jogador.equipe.id})}"
+               class="btn-voltar">
+                ← Voltar
+            </a>
+        </div>
 
-        <form th:action="@{/jogadores/salvar}"
-              th:object="${jogador}"
-              method="post">
+        <form th:action="@{/jogadores}" method="post" th:object="${jogador}">
+
+            <input type="hidden" th:field="*{id}">
 
             <div class="campo">
-                <label>Nome:</label>
+                <label>Nome</label>
                 <input type="text" th:field="*{nome}" required>
             </div>
 
             <div class="campo">
-                <label>Número:</label>
+                <label>Número</label>
                 <input type="number" th:field="*{numeroCamisa}" required>
             </div>
 
             <div class="campo">
-                <label>Posição:</label>
+                <label>Posição</label>
                 <input type="text" th:field="*{posicao}" required>
             </div>
 
             <div class="campo">
-                <label>Equipe:</label>
+                <label>Equipe</label>
                 <select th:field="*{equipe.id}" required>
                     <option value="">Selecione</option>
-
-                    <option th:each="equipe : ${equipes}"
-                            th:value="${equipe.id}"
-                            th:text="${equipe.nome}">
+                    <option th:each="e : ${equipes}"
+                            th:value="${e.id}"
+                            th:text="${e.nome}">
                     </option>
                 </select>
             </div>
 
             <div class="botoes">
-                <button type="submit" class="btn-salvar">
+                <button type="submit" class="btn-padrao btn-salvar">
                     Salvar
                 </button>
 
-                <a href="/jogadores" class="btn-cancelar">
-                    Cancelar
+                <a th:href="@{/jogadores/equipe/{id}(id=${jogador.equipe.id})}"
+                   class="btn-padrao btn-voltar">
+                    Voltar
                 </a>
             </div>
-
         </form>
 
     </div>
 
 </section>
 </html>
-
 

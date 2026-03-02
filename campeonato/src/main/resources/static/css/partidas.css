@@ -117,4 +117,8 @@
 .btn-acao:hover {
     opacity: 0.85;
 }
+.acoes-topo {
+    display: flex;
+    gap: 10px;
+}
 

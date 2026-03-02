@@ -35,10 +35,10 @@ public class SetPartidaServiceImpl implements SetPartidaService {
     @Override
     public SetPartida criarSet(Integer partidaId, SetPartida set) {
 
-
         Partida partida = partidaRepository.findById(partidaId)
                 .orElseThrow(() ->
                         new RuntimeException("Partida não encontrada"));
+
         if (partida.getFinalizada()) {
             throw new RuntimeException("Não é possível adicionar set em partida finalizada");
         }
@@ -51,14 +51,19 @@ public class SetPartidaServiceImpl implements SetPartidaService {
             throw new RuntimeException("Pontuação do set não pode ser negativa");
         }
 
-
         if (set.getPontosMandante().equals(set.getPontosVisitante())) {
             throw new RuntimeException("Set não pode terminar empatado");
         }
 
-
+        // 🔎 Buscar sets existentes
         List<SetPartida> setsExistentes =
                 setRepository.findByPartidaId(partida.getId());
+
+        // 🚨 GARANTIA ABSOLUTA: definir número do set
+        int numeroSet = setsExistentes.size() + 1;
+        set.setNumeroSet(numeroSet);
+
+        // Melhor de 5
         if (setsExistentes.size() >= 5) {
             throw new RuntimeException("Número máximo de sets atingido (melhor de 5)");
         }
@@ -78,8 +83,8 @@ public class SetPartidaServiceImpl implements SetPartidaService {
             throw new RuntimeException("A partida já possui um vencedor");
         }
 
-
         set.setPartida(partida);
+
         SetPartida setSalvo = setRepository.save(set);
 
         atualizarResultadoPartida(partida);
@@ -93,32 +98,33 @@ public class SetPartidaServiceImpl implements SetPartidaService {
     }
 
     private void atualizarResultadoPartida(Partida partida) {
+
         List<SetPartida> sets = setRepository.findByPartidaId(partida.getId());
 
         int setsMandante = 0;
         int setsVisitante = 0;
 
-        for (SetPartida set : sets) {
-            if (set.getPontosMandante() > set.getPontosVisitante()) {
+        for (SetPartida s : sets) {
+            if (s.getPontosMandante() > s.getPontosVisitante()) {
                 setsMandante++;
             } else {
                 setsVisitante++;
             }
         }
+
+        // 🎯 Atualiza placar parcial
+        partida.setResultadoFinal(setsMandante + "x" + setsVisitante);
+
+        // 🏆 Se alguém chegou a 3 sets, finaliza
         if (setsMandante == 3 || setsVisitante == 3) {
             partida.setFinalizada(true);
-            String resultadoFinal = " ";
+        }
 
-            if (setsMandante > setsVisitante) {
-                partida.setResultadoFinal(setsMandante + "x" + setsVisitante);
-            } else {
-                partida.setResultadoFinal(setsVisitante + "x" + setsMandante);
-            }
+        partidaRepository.save(partida);
+    }
+}
 
-            partida.setResultadoFinal(resultadoFinal);
-            partidaRepository.save(partida);
-
-            Usuario usuarioSistema = usuarioRepository.findById(1)
+            /*Usuario usuarioSistema = usuarioRepository.findById(1)
                     .orElseThrow(() ->
                             new RuntimeException("Usuário do sistema não encontrado"));
 
@@ -134,6 +140,7 @@ public class SetPartidaServiceImpl implements SetPartidaService {
             auditoriaRepository.save(auditoria);
         }
     }
-}
+} */
+
 
 

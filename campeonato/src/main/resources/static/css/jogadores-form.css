@@ -24,18 +24,24 @@
     gap: 10px;
 }
 
-.btn-salvar {
-    background: #ff6a00;
+.btn-padrao {
+    padding: 10px 18px;
     border: none;
-    padding: 10px 15px;
-    color: white;
+    border-radius: 6px;
+    font-weight: bold;
     cursor: pointer;
+    text-decoration: none;
+    display: inline-block;
+    text-align: center;
 }
 
-.btn-cancelar {
-    background: gray;
-    padding: 10px 15px;
+.btn-salvar {
+    background: #ff6a00;
     color: white;
-    text-decoration: none;
+}
+
+.btn-voltar {
+    background:  #ff6a00;
+    color: white;
 }
 

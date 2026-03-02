@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{base-privado :: layout(~{::section})}">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Detalhe Campeonato</title>
+    <link rel="stylesheet" th:href="@{/css/campeonato.css}">
+</head>
+
+<section class="detalhe-wrapper">
+
+    <div class="detalhe-card">
+
+        <!-- ERRO -->
+        <div th:if="${erro}" class="alerta-erro">
+            <p th:text="${erro}"></p>
+        </div>
+
+        <!-- TOPO -->
+        <div class="detalhe-topo">
+
+            <div>
+                <h2 th:text="${campeonato.nome}"></h2>
+                <p class="subtitulo">
+                    Campeonato organizado por
+                    <strong th:text="${campeonato.organizador.nome}"></strong>
+                </p>
+            </div>
+
+            <div>
+                <span class="status"
+                      th:text="${campeonato.iniciado} ? 'Em andamento' : 'Não iniciado'"
+                      th:classappend="${campeonato.iniciado} ? ' status-ativo' : ' status-inativo'">
+                </span>
+            </div>
+
+        </div>
+
+        <!-- NAVEGAÇÃO -->
+        <div class="bloco-menu">
+
+            <h3> 🔎 Central do Campeonato</h3>
+
+            <div class="menu-grid">
+
+                <a th:href="@{/equipes/campeonato/{id}(id=${campeonato.id})}"
+                   class="btn-menu">Equipes</a>
+
+                <a th:href="@{/campeonatos/{id}/rodadas(id=${campeonato.id})}"
+                   class="btn-menu">Rodadas</a>
+
+                <a th:href="@{/partidas/campeonatos/{id}/partidas(id=${campeonato.id})}"
+                   class="btn-menu">Partidas</a>
+
+                <!-- ✅ CORRIGIDO AQUI -->
+                <a th:href="@{/campeonatos/{id}/classificacao(id=${campeonato.id})}"
+                   class="btn-menu">Classificação</a>
+
+            </div>
+
+        </div>
+
+        <!-- AÇÕES -->
+        <div class="bloco-acoes"
+             th:if="${usuarioLogado == campeonato.organizador.email}">
+
+            <h3> 🏐 Inicie sua Partida automática </h3>
+
+            <div class="menu-grid">
+
+                <form th:action="@{/campeonatos/{id}/gerar-partidas(id=${campeonato.id})}"
+                      method="post">
+
+                    <button type="submit" class="btn-menu">
+                        Gerar Partidas
+                    </button>
+
+                </form>
+
+                <form th:action="@{/campeonatos/{id}/iniciar(id=${campeonato.id})}"
+                      method="post"
+                      th:if="${!campeonato.iniciado}">
+
+                    <button type="submit" class="btn-menu">
+                        Iniciar Campeonato
+                    </button>
+
+                </form>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+</html>

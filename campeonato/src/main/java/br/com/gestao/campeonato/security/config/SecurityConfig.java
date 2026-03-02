@@ -27,12 +27,12 @@ public class SecurityConfig {
                         // 🔓 PÁGINAS PÚBLICAS (SOMENTE VISUALIZAÇÃO)
                         .requestMatchers(
                                 "/", "/home",
-                                "/login", "/cadastro"
+                                "/login", "/cadastro", "equipes"
                         ).permitAll()
                         .requestMatchers(HttpMethod.GET, "/campeonatos").permitAll()
 
                         // 🔐 QUALQUER COISA EM /campeonatos/** EXIGE LOGIN
-                        .requestMatchers("/campeonatos/**").authenticated()
+                        .requestMatchers("/campeonatos/**","/equipes/**" ).authenticated()
 
                         // 🔐 RESTO DO SISTEMA EXIGE LOGIN
                         .anyRequest().authenticated()
@@ -40,7 +40,7 @@ public class SecurityConfig {
 
                 .formLogin(form -> form
                         .loginPage("/login")
-                        .defaultSuccessUrl("/home", true)
+                        .defaultSuccessUrl("/campeonatos", true)
                         .permitAll()
                 )
 

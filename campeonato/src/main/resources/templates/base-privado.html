@@ -14,6 +14,8 @@
     <<link rel="stylesheet" th:href="@{/css/equipes.css}">
     <link rel="stylesheet" th:href="@{/css/jogadores-form.css}">
     <link rel="stylesheet" th:href="@{/css/partidas.css}">
+    <link rel="stylesheet" th:href="@{/css/rodadas.css}">
+    <link rel="stylesheet" th:href="@{/css/classificacao.css}">
 </head>
 
 <body>
@@ -25,13 +27,12 @@
     </div>
 
     <nav class="menu">
-        <a href="/home">Dashboard</a>
-        <a href="/campeonatos">Campeonatos</a>
+        <a th:href="@{/campeonatos}">
+            Campeonatos
+        </a>
         <a href="/equipes">Equipes</a>
-        <a href="/jogadores">Jogadores</a>
-        <a href="/partidas">Partidas</a>
+        <a th:href="@{/jogadores}">Jogadores</a>
         <a href="/classificacao">Classificação</a>
-        <a href="/configuracoes">Configurações</a>
         <a href="/logout" class="sair">Sair</a>
     </nav>
 </header>

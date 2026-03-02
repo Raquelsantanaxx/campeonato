@@ -22,7 +22,10 @@
     color: #777;
     margin-top: 4px;
 }
-
+.btn-jogador {
+    background: #e65c00;
+    color: white;
+}
 /* ===== BOTÃO NOVA EQUIPE ===== */
 .btn-nova-equipe {
     background-color: #FF6B00;
@@ -109,13 +112,15 @@
 
 /* Botões */
 .btn-editar {
-    background: #0066FF;
+    background: #008000;
     color: white;
 }
 
 .btn-excluir {
     background: #E32929;
     color: white;
+    border: none;
+    outline: none;
 }
 
 /* ===== ESTADO VAZIO ===== */
@@ -125,6 +130,7 @@
     font-size: 1.2rem;
     color: #666;
 }
+
 
 
 

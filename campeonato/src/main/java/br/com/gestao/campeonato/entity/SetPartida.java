@@ -7,7 +7,12 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
-@Table(name = "set_partida")
+@Table(
+        name = "set_partida",
+        uniqueConstraints = @UniqueConstraint(
+                columnNames = {"id_partida", "numero_set"}
+        )
+)
 @Getter
 @Setter
 @NoArgsConstructor

@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{base-privado :: layout(~{::section})}">
+
+<section class="partidas-page">
+
+    <div class="card-container">
+
+        <div class="topo-lista">
+            <div>
+                <h2>Classificação</h2>
+                <p class="subtitulo">Tabela do campeonato</p>
+            </div>
+
+            <a th:href="@{/campeonatos/{id}(id=${campeonatoId})}"
+               class="btn-voltar">
+                ← Voltar
+            </a>
+        </div>
+
+        <table class="tabela-partidas">
+
+            <thead>
+            <tr>
+                <th>#</th>
+                <th>Equipe</th>
+                <th>Pontos</th>
+                <th>Vitórias</th>
+                <th>Derrotas</th>
+                <th>Sets Pró</th>
+                <th>Sets Contra</th>
+            </tr>
+            </thead>
+
+            <tbody>
+            <tr th:each="equipe, iterStat : ${tabela}"
+                th:classappend="
+                    ${iterStat.count == 1} ? 'linha-ouro' :
+                    (${iterStat.count == 2} ? 'linha-prata' :
+                    (${iterStat.count == 3} ? 'linha-bronze' : ''))">
+
+                <td th:text="${iterStat.count}" class="col-posicao"></td>
+
+                <td th:text="${equipe.nomeEquipe}"></td>
+
+                <td th:text="${equipe.pontosClassificacao}" class="col-pontos"></td>
+
+                <td th:text="${equipe.vitorias}"></td>
+
+                <td th:text="${equipe.derrotas}"></td>
+
+                <!-- 🔥 CORREÇÃO AQUI -->
+                <td th:text="${equipe.setsPro}"></td>
+
+                <td th:text="${equipe.setsContra}"></td>
+
+            </tr>
+            </tbody>
+
+        </table>
+
+    </div>
+
+</section>
+
+</html>

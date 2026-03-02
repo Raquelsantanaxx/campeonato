@@ -23,6 +23,6 @@ public interface CampeonatoService {
 
     void encerrarCampeonato(Integer campeonatoId);
 
-
+    void gerarPartidas(Integer campeonatoId, String emailUsuario);
 }
 

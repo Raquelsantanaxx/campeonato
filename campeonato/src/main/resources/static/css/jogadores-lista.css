@@ -57,3 +57,16 @@ tbody tr {
 tbody tr:hover {
     background: #f5f5f5;
 }
+.btn-voltar {
+    background: #e5e7eb;
+    color: #374151;
+    padding: 8px 14px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 500;
+    transition: 0.2s;
+}
+
+.btn-voltar:hover {
+    background: #d1d5db;
+}

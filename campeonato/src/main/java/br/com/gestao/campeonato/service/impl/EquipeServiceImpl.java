@@ -1,47 +1,63 @@
 package br.com.gestao.campeonato.service.impl;
 
+import br.com.gestao.campeonato.entity.Campeonato;
 import br.com.gestao.campeonato.entity.Equipe;
+import br.com.gestao.campeonato.repository.CampeonatoRepository;
 import br.com.gestao.campeonato.repository.EquipeRepository;
 import br.com.gestao.campeonato.service.EquipeService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
+
 @Service
 public class EquipeServiceImpl implements EquipeService {
 
     private final EquipeRepository equipeRepository;
+    private final CampeonatoRepository campeonatoRepository;
 
-    public EquipeServiceImpl(EquipeRepository equipeRepository) {
+    public EquipeServiceImpl(EquipeRepository equipeRepository,
+                             CampeonatoRepository campeonatoRepository) {
         this.equipeRepository = equipeRepository;
+        this.campeonatoRepository = campeonatoRepository;
+
     }
 
     @Override
-    public Equipe salvar(Equipe equipe) {
+    public Equipe salvar(Equipe equipe, String emailUsuario) {
 
-        // REGRA 1: equipe precisa estar vinculada a um campeonato
-        if (equipe.getCampeonato() == null || equipe.getCampeonato().getId() == null) {
-            throw new RuntimeException("A equipe deve estar vinculada a um campeonato.");
+        if (equipe.getCampeonato() == null ||
+                equipe.getCampeonato().getId() == null) {
+
+            throw new RuntimeException("Campeonato obrigatório.");
         }
 
         Integer campeonatoId = equipe.getCampeonato().getId();
 
-        // REGRA 2: nome não pode repetir no mesmo campeonato
-        if (equipeRepository.existsByCampeonatoIdAndNomeIgnoreCase(campeonatoId, equipe.getNome())) {
-            throw new RuntimeException("Já existe uma equipe com esse nome neste campeonato.");
+        // 🔥 BUSCAR CAMPEONATO REAL DO BANCO
+        Campeonato campeonato = campeonatoRepository
+                .findById(campeonatoId)
+                .orElseThrow(() ->
+                        new RuntimeException("Campeonato não encontrado."));
+
+        // 🔐 VERIFICAR SE É O DONO
+        if (!campeonato.getOrganizador()
+                .getEmail()
+                .equals(emailUsuario)) {
+
+            throw new RuntimeException(
+                    "Você não pode cadastrar equipe neste campeonato.");
         }
 
-        // REGRA 3: sigla não pode repetir no mesmo campeonato
-        if (equipeRepository.existsByCampeonatoIdAndSiglaIgnoreCase(campeonatoId, equipe.getSigla())) {
-            throw new RuntimeException("Já existe uma equipe com essa sigla neste campeonato.");
-        }
+        // 🔥 AGORA SIM ASSOCIAR O OBJETO REAL
+        equipe.setCampeonato(campeonato);
 
         return equipeRepository.save(equipe);
     }
 
     @Override
-    public Optional<Equipe> buscarPorId(Integer id) {
-        return equipeRepository.findById(id);
+    public Equipe buscarPorId(Integer id) {
+        return equipeRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Equipe não encontrada"));
     }
 
     @Override
@@ -50,13 +66,24 @@ public class EquipeServiceImpl implements EquipeService {
     }
 
     @Override
-    public void deletar(Integer id) {
-        equipeRepository.deleteById(id);
+    public void deletar(Integer id, String emailUsuario) {
+
+        Equipe equipe = buscarPorId(id);
+
+        if (!equipe.getCampeonato()
+                .getOrganizador()
+                .getEmail()
+                .equals(emailUsuario)) {
+
+            throw new RuntimeException("Você não pode excluir esta equipe.");
+        }
+
+        equipeRepository.delete(equipe);
     }
+
     @Override
     public List<Equipe> listarPorCampeonato(Integer campeonatoId) {
         return equipeRepository.findByCampeonatoId(campeonatoId);
     }
-    
 }
 

@@ -14,4 +14,5 @@ public interface PartidaRepository extends JpaRepository<Partida, Integer> {
             Integer mandanteId,
             Integer visitanteId);
 
+    List<Partida> findByCampeonatoIdOrderByNumeroRodadaAsc(Integer campeonatoId);
 }

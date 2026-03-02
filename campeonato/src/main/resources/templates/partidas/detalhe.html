@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{base-privado :: layout(~{::section})}">
+
+<section class="detalhe-partida-page">
+
+    <div class="card-container">
+
+        <!-- TÍTULO -->
+        <div class="topo-lista">
+            <div>
+                <h2 th:text="${partida.equipeMandante.nome + ' vs ' + partida.equipeVisitante.nome}"></h2>
+                <p class="subtitulo">
+                    Status:
+                    <span th:text="${partida.finalizada} ? 'Finalizada' : 'Em andamento'"></span>
+                </p>
+            </div>
+        </div>
+
+        <!-- FORM ADICIONAR SET -->
+        <div class="form-set" th:if="${!partida.finalizada}">
+
+            <h3>Adicionar Set</h3>
+
+            <form th:action="@{/sets/{id}(id=${partida.id})}"
+                  method="post"
+                  class="linha-form">
+
+                <input type="number"
+                       name="pontosMandante"
+                       placeholder="Pontos Mandante"
+                       required />
+
+                <input type="number"
+                       name="pontosVisitante"
+                       placeholder="Pontos Visitante"
+                       required />
+
+                <button type="submit" class="btn-salvar">
+                    Adicionar Set
+                </button>
+
+            </form>
+        </div>
+
+        <!-- LISTA DE SETS -->
+        <div class="lista-sets">
+
+            <h3>Sets da Partida</h3>
+
+            <table class="tabela-partidas">
+                <thead>
+                <tr>
+                    <th>Set</th>
+                    <th>Mandante</th>
+                    <th>Visitante</th>
+                </tr>
+                </thead>
+
+                <tbody>
+                <tr th:each="s : ${sets}">
+                    <td th:text="${s.numeroSet}"></td>
+                    <td th:text="${s.pontosMandante}"></td>
+                    <td th:text="${s.pontosVisitante}"></td>
+                </tr>
+                </tbody>
+            </table>
+
+        </div>
+
+    </div>
+
+</section>
+</html>

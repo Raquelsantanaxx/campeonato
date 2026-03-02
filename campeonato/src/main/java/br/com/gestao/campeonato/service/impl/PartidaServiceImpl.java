@@ -2,17 +2,8 @@ package br.com.gestao.campeonato.service.impl;
 
 import br.com.gestao.campeonato.dto.PartidaDTO;
 import br.com.gestao.campeonato.dto.RodadaDTO;
-import br.com.gestao.campeonato.entity.AuditoriaResultado;
-import br.com.gestao.campeonato.entity.Campeonato;
-import br.com.gestao.campeonato.entity.Equipe;
-import br.com.gestao.campeonato.entity.Partida;
-import br.com.gestao.campeonato.entity.Usuario;
-import br.com.gestao.campeonato.repository.AuditoriaResultadoRepository;
-import br.com.gestao.campeonato.repository.CampeonatoRepository;
-import br.com.gestao.campeonato.repository.EquipeRepository;
-import br.com.gestao.campeonato.repository.PartidaRepository;
-import br.com.gestao.campeonato.repository.UsuarioRepository;
-import br.com.gestao.campeonato.service.CampeonatoService;
+import br.com.gestao.campeonato.entity.*;
+import br.com.gestao.campeonato.repository.*;
 import br.com.gestao.campeonato.service.PartidaService;
 import org.springframework.stereotype.Service;
 
@@ -32,23 +23,63 @@ public class PartidaServiceImpl implements PartidaService {
                               AuditoriaResultadoRepository auditoriaRepository,
                               UsuarioRepository usuarioRepository,
                               EquipeRepository equipeRepository,
-                              CampeonatoRepository campeonatoRepository
-                              ) {
+                              CampeonatoRepository campeonatoRepository) {
         this.partidaRepository = partidaRepository;
         this.auditoriaRepository = auditoriaRepository;
         this.usuarioRepository = usuarioRepository;
         this.equipeRepository = equipeRepository;
         this.campeonatoRepository = campeonatoRepository;
-
     }
 
+    // ================================
+    // CRUD BÁSICO
+    // ================================
 
     @Override
     public Partida salvar(Partida partida) {
 
+        if (partida.getCampeonato().getIniciado()) {
+            throw new RuntimeException("Não é possível alterar partidas após iniciar o campeonato.");
+        }
+
+        if (partida.getCampeonato() == null || partida.getCampeonato().getId() == null) {
+            throw new RuntimeException("Campeonato é obrigatório.");
+        }
+
+        if (partida.getEquipeMandante() == null || partida.getEquipeVisitante() == null) {
+            throw new RuntimeException("Mandante e visitante são obrigatórios.");
+        }
+
+        if (partida.getEquipeMandante().getId()
+                .equals(partida.getEquipeVisitante().getId())) {
+            throw new RuntimeException("Uma equipe não pode jogar contra ela mesma.");
+        }
+
+        Campeonato campeonato = campeonatoRepository.findById(
+                partida.getCampeonato().getId()
+        ).orElseThrow(() -> new RuntimeException("Campeonato não encontrado"));
+
+        Equipe mandante = equipeRepository.findById(
+                partida.getEquipeMandante().getId()
+        ).orElseThrow(() -> new RuntimeException("Equipe mandante não encontrada"));
+
+        Equipe visitante = equipeRepository.findById(
+                partida.getEquipeVisitante().getId()
+        ).orElseThrow(() -> new RuntimeException("Equipe visitante não encontrada"));
+
+        if (!mandante.getCampeonato().getId().equals(campeonato.getId()) ||
+                !visitante.getCampeonato().getId().equals(campeonato.getId())) {
+            throw new RuntimeException("As equipes devem pertencer ao mesmo campeonato.");
+        }
+
         if (partida.getDataHora() == null) {
             partida.setDataHora(LocalDateTime.now());
         }
+
+        partida.setCampeonato(campeonato);
+        partida.setEquipeMandante(mandante);
+        partida.setEquipeVisitante(visitante);
+        partida.setFinalizada(false);
 
         return partidaRepository.save(partida);
     }
@@ -80,14 +111,16 @@ public class PartidaServiceImpl implements PartidaService {
                 .findByEquipeMandante_IdOrEquipeVisitante_Id(idEquipe, idEquipe);
     }
 
+    // ================================
+    // RESULTADO MANUAL
+    // ================================
 
     @Override
     public Partida atualizarResultadoManual(Integer partidaId,
                                             String novoResultado,
                                             Integer usuarioId) {
 
-        Partida partida = partidaRepository.findById(partidaId)
-                .orElseThrow(() -> new RuntimeException("Partida não encontrada"));
+        Partida partida = buscarPorId(partidaId);
 
         Usuario usuario = usuarioRepository.findById(usuarioId)
                 .orElseThrow(() -> new RuntimeException("Usuário não encontrado"));
@@ -97,29 +130,41 @@ public class PartidaServiceImpl implements PartidaService {
         partida.setResultadoFinal(novoResultado);
         partida.setFinalizada(true);
 
-        Partida partidaSalva = partidaRepository.save(partida);
+        Partida salva = partidaRepository.save(partida);
 
         AuditoriaResultado auditoria = new AuditoriaResultado();
-        auditoria.setPartida(partidaSalva);
+        auditoria.setPartida(salva);
         auditoria.setUsuario(usuario);
-        auditoria.setJustificativa("Resultado alterado manualmente pelo sistema");
+        auditoria.setJustificativa("Resultado alterado manualmente");
         auditoria.setDadosAnteriores(resultadoAnterior);
         auditoria.setDataHora(LocalDateTime.now());
 
         auditoriaRepository.save(auditoria);
 
-        return partidaSalva;
+        return salva;
     }
 
+    // ================================
+    // GERAR PARTIDAS - PONTOS CORRIDOS
+    // ================================
 
     @Override
-    public void gerarPartidasPontosCorridos(Integer campeonatoId) {
+    public void gerarPartidasPontosCorridos(Integer campeonatoId,
+                                            String emailUsuario) {
 
         Campeonato campeonato = campeonatoRepository.findById(campeonatoId)
                 .orElseThrow(() -> new RuntimeException("Campeonato não encontrado"));
 
+        if (!partidaRepository.findByCampeonatoId(campeonatoId).isEmpty()) {
+            throw new RuntimeException("Partidas já foram geradas.");
+        }
+
+        if (!campeonato.getOrganizador().getEmail().equals(emailUsuario)) {
+            throw new RuntimeException("Você não pode gerar partidas.");
+        }
+
         if (campeonato.getIniciado()) {
-            throw new RuntimeException("Campeonato já foi iniciado.");
+            throw new RuntimeException("Campeonato já iniciado.");
         }
 
         List<Equipe> equipes = equipeRepository.findByCampeonatoId(campeonatoId);
@@ -128,95 +173,73 @@ public class PartidaServiceImpl implements PartidaService {
             throw new RuntimeException("É necessário no mínimo 2 equipes.");
         }
 
-
-        boolean temBye = equipes.size() % 2 != 0;
-
-        if (temBye) {
-            Equipe bye = new Equipe();
-            bye.setId(-1); // ID fictício (NUNCA será salvo)
-            bye.setNome("BYE");
-            equipes.add(bye);
-        }
-
+        int numeroRodada = 1;
 
         for (int i = 0; i < equipes.size(); i++) {
             for (int j = i + 1; j < equipes.size(); j++) {
 
-                Equipe mandante = equipes.get(i);
-                Equipe visitante = equipes.get(j);
-
-                // Se algum for BYE, não gera partida
-                if (mandante.getId() == -1 || visitante.getId() == -1) {
-                    continue;
-                }
-
                 Partida partida = new Partida();
                 partida.setCampeonato(campeonato);
-                partida.setEquipeMandante(mandante);
-                partida.setEquipeVisitante(visitante);
+                partida.setEquipeMandante(equipes.get(i));
+                partida.setEquipeVisitante(equipes.get(j));
                 partida.setFinalizada(false);
-                partida.setDataHora(null); // agenda depois
+                partida.setNumeroRodada(numeroRodada);
 
                 partidaRepository.save(partida);
             }
+            numeroRodada++;
         }
     }
 
+    // ================================
+    // RODADAS
+    // ================================
+
     @Override
-    public List<RodadaDTO> gerarRodadasPontosCorridos(Integer campeonatoId) {
+    public List<RodadaDTO> listarRodadasPorCampeonato(Integer campeonatoId) {
 
-        List<Equipe> equipes = equipeRepository.findByCampeonatoId(campeonatoId);
+        List<Partida> partidas =
+                partidaRepository.findByCampeonatoIdOrderByNumeroRodadaAsc(campeonatoId);
 
-        if (equipes.size() < 2) {
-            throw new RuntimeException("É necessário no mínimo 2 equipes.");
+        return montarRodadas(partidas);
+    }
+
+    private List<RodadaDTO> montarRodadas(List<Partida> partidas) {
+
+        Map<Integer, List<Partida>> mapa = new LinkedHashMap<>();
+
+        for (Partida p : partidas) {
+
+            mapa
+                    .computeIfAbsent(p.getNumeroRodada(), r -> new ArrayList<>())
+                    .add(p);
         }
-
-        boolean temBye = equipes.size() % 2 != 0;
-
-        if (temBye) {
-            Equipe bye = new Equipe();
-            bye.setNome("BYE");
-            equipes.add(bye);
-        }
-
-        int totalRodadas = equipes.size() - 1;
-        int partidasPorRodada = equipes.size() / 2;
 
         List<RodadaDTO> rodadas = new ArrayList<>();
 
-        List<Equipe> lista = new ArrayList<>(equipes);
+        for (Map.Entry<Integer, List<Partida>> entry : mapa.entrySet()) {
 
-        for (int rodada = 1; rodada <= totalRodadas; rodada++) {
+            List<PartidaDTO> partidasDTO = new ArrayList<>();
 
-            List<PartidaDTO> partidas = new ArrayList<>();
+            for (Partida p : entry.getValue()) {
 
-            for (int i = 0; i < partidasPorRodada; i++) {
-
-                Equipe mandante = lista.get(i);
-                Equipe visitante = lista.get(lista.size() - 1 - i);
-
-                if (!mandante.getNome().equals("BYE") &&
-                        !visitante.getNome().equals("BYE")) {
-
-                    partidas.add(
-                            new PartidaDTO(
-                                    mandante.getNome(),
-                                    visitante.getNome()
-                            )
-                    );
-                }
+                partidasDTO.add(
+                        new PartidaDTO(
+                                p.getEquipeMandante().getNome(),
+                                p.getEquipeVisitante().getNome()
+                        )
+                );
             }
 
-            rodadas.add(new RodadaDTO(rodada, partidas));
-
-            // ROTACIONA (mantém o primeiro fixo)
-            Equipe fixa = lista.remove(1);
-            lista.add(fixa);
+            rodadas.add(new RodadaDTO(entry.getKey(), partidasDTO));
         }
-        rodadas.sort(Comparator.comparing(RodadaDTO::getNumeroRodada));
 
         return rodadas;
     }
+
+    // ================================
+    // MATA-MATA
+    // ================================
 
     @Override
     public void gerarPartidasMataMata(Integer campeonatoId) {
@@ -242,5 +265,17 @@ public class PartidaServiceImpl implements PartidaService {
 
             partidaRepository.save(partida);
         }
+    }
+    @Override
+    public List<RodadaDTO> gerarRodadasPontosCorridos(Integer campeonatoId) {
+
+        List<Partida> partidas =
+                partidaRepository.findByCampeonatoIdOrderByNumeroRodadaAsc(campeonatoId);
+
+        if (partidas.isEmpty()) {
+            throw new RuntimeException("Nenhuma partida encontrada para este campeonato.");
+        }
+
+        return montarRodadas(partidas);
     }
 }

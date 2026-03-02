@@ -27,24 +27,23 @@
                     <h3 th:text="${camp.nome}">Nome</h3>
 
                     <div class="acoes-campeonato"
-                         th:if="${#authentication != null
-                                    and camp.organizador.email == #authentication.name}">
+                         th:if="${usuarioLogado != null and usuarioLogado == camp.organizador.email}">
 
                         <a th:href="@{/campeonatos/editar/{id}(id=${camp.id})}"
                            class="btn-acao btn-editar">
                             Editar
                         </a>
+                        <a th:href="@{/campeonatos/{id}(id=${camp.id})}"
+                           class="btn-acao btn-editar">
+                            Acessar
+                        </a>
 
                         <form th:action="@{/campeonatos/desativar/{id}(id=${camp.id})}"
                               method="post"
                               style="display:inline;">
-
-                            <button type="submit"
-                                    class="btn-acao btn-excluir"
-                                    onclick="return confirm('Tem certeza que deseja desativar este campeonato?')">
+                            <button type="submit" class="btn-acao btn-excluir">
                                 Desativar
                             </button>
-
                         </form>
 
                     </div>
