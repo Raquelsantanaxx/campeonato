@@ -25,22 +25,6 @@ Antes de executar, é necessário ter instalado:
 
 ### 🗄️ 2. Criar o Banco de Dados
 No seu terminal MySQL ou Workbench, execute:
-```sql
-CREATE DATABASE campeonatosesportivosvolei;
+```sql CREATE DATABASE campeonatosesportivosvolei; # Configuração de conexão com o banco de dados spring.datasource.url=jdbc:mysql://localhost:3306/campeonatosesportivosvolei spring.datasource.username=SEU_USUARIO -- recomendo usar root spring.datasource.password=SUA_SENHA -- recomendo usar root # Configurações do Hibernate/JPA spring.jpa.hibernate.ddl-auto=update spring.jpa.show-sql=true
 
 
-# Configuração de conexão com o banco de dados
-spring.datasource.url=jdbc:mysql://localhost:3306/campeonatosesportivosvolei
-spring.datasource.username=SEU_USUARIO -- recomendo usar root 
-spring.datasource.password=SUA_SENHA -- recomendo usar root 
-
-# Configurações do Hibernate/JPA
-spring.jpa.hibernate.ddl-auto=update
-spring.jpa.show-sql=true
-
-
-###Acessar o Sistema
-
-Após iniciar a aplicação, acessar:
-
-http://localhost:8080
