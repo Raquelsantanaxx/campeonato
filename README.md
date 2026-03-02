@@ -1,7 +1,7 @@
 # BoraVolêi Sistema de Gestão de Campeonatos de Vôlei
 Projeto desenvolvido para a disciplina Desenvolvimento Web, do 6º semestre do curso de Licenciatura em Ciência da Computação da Universidade Federal Rural da Amazônia (UFRA) - Campus Belém.
 
-O sistema tem como objetivo gerenciar campeonatos  inicial na modalidade de Vôlei, permitindo o cadastro de campeonatos, equipes, partidas e sets
+O sistema tem como objetivo gerenciar campeonatos  inicialmente na modalidade de Vôlei, permitindo o cadastro de campeonatos, equipes, partidas e sets
 
 **Java 17 + Spring Boot**, com foco no gerenciamento de campeonatos amadores de voleibol.
 
