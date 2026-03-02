@@ -75,3 +75,7 @@ O projeto foi construído utilizando as seguintes tecnologias
 | **Front-end** | Raquel Santana de Souza |
 | **UX (Interface)** | Kallel Garcez Torres e Luani Vanderlea Piedade Pereira e |
 | **Documentação** | Caian Aiury da Cunha Carvalho |
+
+## Requisitos Iniciais
+O levantamento de requisitos e primeiras definições do sistema podem ser consultados no seguinte documento:
+[Requisitos V.2.pdf](https://github.com/user-attachments/files/25697719/Requisitos.V.2.pdf)
