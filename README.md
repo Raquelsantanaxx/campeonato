@@ -50,13 +50,17 @@ Após iniciar a aplicação, acessar:
 http://localhost:8080
 
 ## Tecnologias Utilizadas
-Tecnologia	                 Função
-Java 17	                    Linguagem principal
-Spring Boot                  3.3.5	Framework
-Spring Data JPA	             Persistência
-Hibernate	                   ORM
-Spring Security	             Autenticação
-Thymeleaf	                   Renderização HTML
-MySQL	                       Banco de dados
-Maven	                       Gerenciador de dependências
-Tomcat Embedded	             Servidor interno
+
+O projeto foi construído utilizando as seguintes tecnologias
+
+| Tecnologia | Função |
+| :--- | :--- |
+| **Java 17** | Linguagem de programação principal |
+| **Spring Boot 3.3.5** | Framework para desenvolvimento da aplicação |
+| **Spring Data JPA** | Abstração para persistência de dados |
+| **Hibernate** | Framework ORM (Mapeamento Objeto-Relacional) |
+| **Spring Security** | Implementação de autenticação e autorização |
+| **Thymeleaf** | Motor de template para renderização do HTML |
+| **MySQL** | Sistema de gerenciamento de banco de dados relacional |
+| **Maven** | Gerenciador de dependências e automação de build |
+| **Tomcat Embedded** | Servidor de aplicação interno para execução local |
