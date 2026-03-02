@@ -65,19 +65,13 @@ O projeto foi construído utilizando as seguintes tecnologias
 | **Maven** | Gerenciador de dependências e automação de build |
 | **Tomcat Embedded** | Servidor de aplicação interno para execução local |
 
+## 👥 Equipe do Projeto
 
-## Equipe de Desenvolvimento
-Gerência de Projeto :
-RAQUEL SANTANA DE SOUZA
-DBA :
-DANILO MORAIS DE AZEVEDO
-RAQUEL SANTANA DE SOUZA
-Back-end
-RAQUEL SANTANA DE SOUZA
-Front-end 
-RAQUEL SANTANA DE SOUZA
-UX :
-KALLEL GARCEZ TORRES
-LUANI VANDERLEA PIEDADE PEREIRA
-Documentações 
-CAIAN AIURY DA CUNHA CARVALHO
+| Responsabilidade | Membro(s) |
+| :--- | :--- |
+| **Gerência de Projeto** | Raquel Santana de Souza |
+| **DBA (Banco de Dados)** | Danilo Morais de Azevedo e Raquel Santana de Souza |
+| **Back-end** | Raquel Santana de Souza |
+| **Front-end** | Raquel Santana de Souza |
+| **UX (Interface)** | Kallel Garcez Torres |
+| **Documentação** | Luani Vanderlea Piedade Pereira e Caian Aiury da Cunha Carvalho |
