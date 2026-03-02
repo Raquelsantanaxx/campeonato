@@ -64,3 +64,20 @@ O projeto foi construído utilizando as seguintes tecnologias
 | **MySQL** | Sistema de gerenciamento de banco de dados relacional |
 | **Maven** | Gerenciador de dependências e automação de build |
 | **Tomcat Embedded** | Servidor de aplicação interno para execução local |
+
+
+## Equipe de Desenvolvimento
+Gerência de Projeto :
+RAQUEL SANTANA DE SOUZA
+DBA :
+DANILO MORAIS DE AZEVEDO
+RAQUEL SANTANA DE SOUZA
+Back-end
+RAQUEL SANTANA DE SOUZA
+Front-end 
+RAQUEL SANTANA DE SOUZA
+UX :
+KALLEL GARCEZ TORRES
+LUANI VANDERLEA PIEDADE PEREIRA
+Documentações 
+CAIAN AIURY DA CUNHA CARVALHO
