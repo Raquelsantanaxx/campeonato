@@ -273,7 +273,7 @@ public class PartidaServiceImpl implements PartidaService {
                 partidaRepository.findByCampeonatoIdOrderByNumeroRodadaAsc(campeonatoId);
 
         if (partidas.isEmpty()) {
-            throw new RuntimeException("Nenhuma partida encontrada para este campeonato.");
+            return Collections.emptyList();
         }
 
         return montarRodadas(partidas);

@@ -63,7 +63,12 @@ body {
     background: var(--bg-light-gray);
     padding: 30px 0;
     margin-top: 80px;
-    text-align: center;
     color: var(--text-secondary);
     font-size: 14px;
+}
+
+.public-footer .footer-container {
+    max-width: 1100px;
+    margin: 0 auto;
+    text-align: center;
 }

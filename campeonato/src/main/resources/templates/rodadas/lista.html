@@ -9,38 +9,51 @@
         <div class="topo-lista">
             <div>
                 <h2>Rodadas do Campeonato</h2>
-                <p class="subtitulo">Visualização das partidas organizadas por rodada</p>
+                <p class="subtitulo">
+                    Visualização das partidas organizadas por rodada
+                </p>
             </div>
 
+            <!-- BOTÃO VOLTAR CORRETO -->
             <a th:href="@{/campeonatos/{id}(id=${campeonatoId})}"
                class="btn-novo">
                 ← Voltar
             </a>
         </div>
 
-        <div th:each="rodada : ${rodadas}" class="rodada-card">
+        <!-- MENSAGEM QUANDO NÃO HÁ PARTIDAS -->
+        <div th:if="${mensagem}" class="alerta-info">
+            <p th:text="${mensagem}"></p>
+        </div>
 
-            <h3>
-                Rodada <span th:text="${rodada.numeroRodada}"></span>
-            </h3>
+        <!-- CASO TENHA RODADAS -->
+        <div th:if="${rodadas != null and !rodadas.isEmpty()}">
 
-            <table class="tabela-partidas">
-                <thead>
-                <tr>
-                    <th>Mandante</th>
-                    <th></th>
-                    <th>Visitante</th>
-                </tr>
-                </thead>
+            <div th:each="rodada : ${rodadas}" class="rodada-card">
 
-                <tbody>
-                <tr th:each="partida : ${rodada.partidas}">
-                    <td th:text="${partida.mandante}"></td>
-                    <td>x</td>
-                    <td th:text="${partida.visitante}"></td>
-                </tr>
-                </tbody>
-            </table>
+                <h3>
+                    Rodada <span th:text="${rodada.numeroRodada}"></span>
+                </h3>
+
+                <table class="tabela-partidas">
+                    <thead>
+                    <tr>
+                        <th>Mandante</th>
+                        <th></th>
+                        <th>Visitante</th>
+                    </tr>
+                    </thead>
+
+                    <tbody>
+                    <tr th:each="partida : ${rodada.partidas}">
+                        <td th:text="${partida.mandante}"></td>
+                        <td>x</td>
+                        <td th:text="${partida.visitante}"></td>
+                    </tr>
+                    </tbody>
+                </table>
+
+            </div>
 
         </div>
 

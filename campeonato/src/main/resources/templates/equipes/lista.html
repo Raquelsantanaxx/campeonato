@@ -3,6 +3,17 @@
 
     <section class="lista-container">
 
+        <!-- 🔔 MENSAGENS (ADICIONADO) -->
+        <div th:if="${erro}"
+             class="alerta alerta-erro"
+             th:text="${erro}">
+        </div>
+
+        <div th:if="${sucesso}"
+             class="alerta alerta-sucesso"
+             th:text="${sucesso}">
+        </div>
+
         <div class="lista-header">
             <div>
                 <h2>👥 Equipes</h2>
@@ -16,17 +27,25 @@
 
             <div style="display:flex; gap:10px;">
 
-                <!-- BOTÃO VOLTAR (SÓ SE EXISTIR CAMPEONATO) -->
+                <!-- BOTÃO VOLTAR (SE VEIO DE CAMPEONATO) -->
                 <a th:if="${campeonato != null}"
                    th:href="@{/campeonatos/{id}(id=${campeonato.id})}"
                    class="btn-nova-equipe">
                     ← Voltar
                 </a>
 
-                <!-- NOVA EQUIPE (SÓ SE EXISTIR CAMPEONATO E FOR ORGANIZADOR) -->
+                <!-- BOTÃO VOLTAR (SE VEIO DA LISTA GERAL) -->
+                <a th:if="${campeonato == null}"
+                   th:href="@{/campeonatos}"
+                   class="btn-nova-equipe">
+                    ← Voltar
+                </a>
+
+                <!-- NOVA EQUIPE -->
                 <a th:if="${campeonato != null
-                      and usuarioLogado != null
-                      and usuarioLogado == campeonato.organizador.email}"
+                           and campeonato.organizador != null
+                           and usuarioLogado != null
+                           and usuarioLogado.equals(campeonato.organizador.email)}"
                    th:href="@{/equipes/novo/{id}(id=${campeonato.id})}"
                    class="btn-nova-equipe">
                     + Nova Equipe
@@ -36,12 +55,15 @@
         </div>
 
         <!-- CASO NÃO TENHA EQUIPES -->
-        <div th:if="${equipes == null or equipes.isEmpty()}" class="estado-vazio">
+        <div th:if="${equipes == null or equipes.isEmpty()}"
+             class="estado-vazio">
             Nenhuma equipe cadastrada.
         </div>
 
         <!-- TABELA -->
-        <table th:if="${equipes != null and !equipes.isEmpty()}" class="tabela-equipes">
+        <table th:if="${equipes != null and !equipes.isEmpty()}"
+               class="tabela-equipes">
+
             <thead>
             <tr>
                 <th>Equipe</th>
@@ -54,29 +76,34 @@
 
             <tbody>
             <tr th:each="equipe : ${equipes}">
-                <td class="nome-equipe" th:text="${equipe.nome}"></td>
+
+                <td class="nome-equipe"
+                    th:text="${equipe.nome}"></td>
+
                 <td th:text="${equipe.sigla}"></td>
 
-                <!-- PROTEÇÃO CASO CAMPEONATO SEJA NULL -->
-                <td th:text="${equipe.campeonato != null ? equipe.campeonato.nome : 'Sem campeonato'}"></td>
+                <td th:text="${equipe.campeonato != null
+                              ? equipe.campeonato.nome
+                              : 'Sem campeonato'}"></td>
 
                 <td>
-                <span class="cor-bolinha"
-                      th:if="${equipe.corPrimaria != null}"
-                      th:style="'background:' + ${equipe.corPrimaria}">
-                </span>
+                    <span class="cor-bolinha"
+                          th:if="${equipe.corPrimaria != null}"
+                          th:style="'background:' + ${equipe.corPrimaria}">
+                    </span>
 
                     <span class="cor-bolinha"
                           th:if="${equipe.corSecundaria != null}"
                           th:style="'background:' + ${equipe.corSecundaria}">
-                </span>
+                    </span>
                 </td>
 
                 <!-- AÇÕES -->
                 <td class="acoes-tabela"
                     th:if="${usuarioLogado != null
                         and equipe.campeonato != null
-                        and usuarioLogado == equipe.campeonato.organizador.email}">
+                        and equipe.campeonato.organizador != null
+                        and usuarioLogado.equals(equipe.campeonato.organizador.email)}">
 
                     <a th:href="@{/equipes/editar/{id}(id=${equipe.id})}"
                        class="btn-acao btn-editar">
@@ -86,7 +113,8 @@
                     <form th:action="@{/equipes/excluir/{id}(id=${equipe.id})}"
                           method="post"
                           style="display:inline;">
-                        <button type="submit" class="btn-acao btn-excluir">
+                        <button type="submit"
+                                class="btn-acao btn-excluir">
                             Excluir
                         </button>
                     </form>

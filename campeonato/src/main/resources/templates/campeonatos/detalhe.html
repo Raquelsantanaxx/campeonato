@@ -19,7 +19,6 @@
 
         <!-- TOPO -->
         <div class="detalhe-topo">
-
             <div>
                 <h2 th:text="${campeonato.nome}"></h2>
                 <p class="subtitulo">
@@ -28,72 +27,74 @@
                 </p>
             </div>
 
-            <div>
-                <span class="status"
-                      th:text="${campeonato.iniciado} ? 'Em andamento' : 'Não iniciado'"
-                      th:classappend="${campeonato.iniciado} ? ' status-ativo' : ' status-inativo'">
-                </span>
-            </div>
-
+            <span class="status"
+                  th:text="${campeonato.iniciado} ? 'Em andamento' : 'Não iniciado'"
+                  th:classappend="${campeonato.iniciado} ? ' status-ativo' : ' status-inativo'">
+            </span>
         </div>
 
-        <!-- NAVEGAÇÃO -->
-        <div class="bloco-menu">
-
-            <h3> 🔎 Central do Campeonato</h3>
+        <!-- CONFIGURAÇÃO -->
+        <div class="bloco-secao">
+            <h3>⚙️ Configuração</h3>
 
             <div class="menu-grid">
-
                 <a th:href="@{/equipes/campeonato/{id}(id=${campeonato.id})}"
-                   class="btn-menu">Equipes</a>
+                   class="btn-menu btn-secundario">
+                    Equipes
+                </a>
 
                 <a th:href="@{/campeonatos/{id}/rodadas(id=${campeonato.id})}"
-                   class="btn-menu">Rodadas</a>
-
-                <a th:href="@{/partidas/campeonatos/{id}/partidas(id=${campeonato.id})}"
-                   class="btn-menu">Partidas</a>
-
-                <!-- ✅ CORRIGIDO AQUI -->
-                <a th:href="@{/campeonatos/{id}/classificacao(id=${campeonato.id})}"
-                   class="btn-menu">Classificação</a>
-
+                   class="btn-menu btn-secundario">
+                    Rodadas
+                </a>
             </div>
-
         </div>
 
-        <!-- AÇÕES -->
+        <!-- PARTIDAS (DESTAQUE) -->
+        <div class="bloco-destaque">
+            <h3>🏐 Gestão das Partidas</h3>
+
+            <a th:href="@{/partidas/campeonatos/{id}/partidas(id=${campeonato.id})}"
+               class="btn-principal">
+                Gerenciar Partidas
+            </a>
+        </div>
+
+        <!-- RESULTADOS -->
+        <div class="bloco-secao">
+            <h3>📊 Resultados</h3>
+
+            <a th:href="@{/campeonatos/{id}/classificacao(id=${campeonato.id})}"
+               class="btn-menu btn-secundario">
+                Classificação
+            </a>
+        </div>
+
+        <!-- AÇÕES DO ORGANIZADOR -->
         <div class="bloco-acoes"
              th:if="${usuarioLogado == campeonato.organizador.email}">
 
-            <h3> 🏐 Inicie sua Partida automática </h3>
+            <h3>👤 Área do Organizador</h3>
 
             <div class="menu-grid">
 
                 <form th:action="@{/campeonatos/{id}/gerar-partidas(id=${campeonato.id})}"
                       method="post">
-
                     <button type="submit" class="btn-menu">
                         Gerar Partidas
                     </button>
-
                 </form>
 
                 <form th:action="@{/campeonatos/{id}/iniciar(id=${campeonato.id})}"
                       method="post"
                       th:if="${!campeonato.iniciado}">
-
                     <button type="submit" class="btn-menu">
                         Iniciar Campeonato
                     </button>
-
                 </form>
 
             </div>
-
         </div>
 
     </div>
-
 </section>
-
-</html>

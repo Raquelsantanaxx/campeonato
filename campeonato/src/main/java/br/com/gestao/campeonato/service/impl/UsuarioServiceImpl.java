@@ -48,5 +48,4 @@ public class UsuarioServiceImpl implements UsuarioService {
     }
 }
 
-// aqui tem que add os métodos de segurança para chamar os tipos de perfis, lá da camada de segurança. 
-o banco já está configurado com os perfis corretos, tem que ajeitar apenas o backend para o frontend chamar certinho na aplicação
+

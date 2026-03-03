@@ -7,6 +7,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 @RequestMapping("/equipes")
@@ -111,13 +112,18 @@ public class EquipeViewController {
     // ===============================
     @PostMapping("/excluir/{id}")
     public String excluir(@PathVariable Integer id,
-                          Authentication authentication) {
+                          Authentication authentication,
+                          RedirectAttributes redirectAttributes) {
 
-        if (authentication == null) {
-            return "redirect:/login";
+        try {
+            equipeService.deletar(id, authentication.getName());
+            redirectAttributes.addFlashAttribute("sucesso",
+                    "Equipe excluída com sucesso.");
+
+        } catch (RuntimeException e) {
+            redirectAttributes.addFlashAttribute("erro",
+                    e.getMessage());
         }
-
-        equipeService.deletar(id, authentication.getName());
 
         return "redirect:/equipes";
     }

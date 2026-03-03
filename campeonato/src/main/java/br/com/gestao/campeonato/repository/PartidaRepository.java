@@ -15,4 +15,6 @@ public interface PartidaRepository extends JpaRepository<Partida, Integer> {
             Integer visitanteId);
 
     List<Partida> findByCampeonatoIdOrderByNumeroRodadaAsc(Integer campeonatoId);
+    boolean existsByEquipeMandanteId(Integer id);
+    boolean existsByEquipeVisitanteId(Integer id);
 }
