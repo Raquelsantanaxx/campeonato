@@ -79,3 +79,7 @@ O projeto foi construído utilizando as seguintes tecnologias
 ## Requisitos
 O levantamento de requisitos e primeiras definições do sistema podem ser consultados no seguinte documento:
 [Requisitos V.2.pdf](https://github.com/user-attachments/files/25697719/Requisitos.V.2.pdf)
+
+## Scripts do banco 
+[SCRIPT POPULAR BANCO.sql](https://github.com/user-attachments/files/25699854/SCRIPT.POPULAR.BANCO.sql)
+[SCRIPT TABELAS.sql](https://github.com/user-attachments/files/25699855/SCRIPT.TABELAS.sql)
