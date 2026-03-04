@@ -22,6 +22,7 @@ Antes de executar, é necessário ter instalado:
 * **Java 17**.
 * **Maven**.
 * **MySQL 8+**.
+* **Springboot 3**.
 
 ## Tecnologias Utilizadas
 
