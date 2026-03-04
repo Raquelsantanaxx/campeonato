@@ -81,5 +81,6 @@ O levantamento de requisitos e primeiras definições do sistema podem ser consu
 [Requisitos V.2.pdf](https://github.com/user-attachments/files/25697719/Requisitos.V.2.pdf)
 
 ## Scripts do banco 
-[SCRIPT POPULAR BANCO.sql](https://github.com/user-attachments/files/25699854/SCRIPT.POPULAR.BANCO.sql)
-[SCRIPT TABELAS.sql](https://github.com/user-attachments/files/25699855/SCRIPT.TABELAS.sql)
+
+[Script tabelas alterado.sql](https://github.com/user-attachments/files/25751950/Script.tabelas.alterado.sql)
+[script popular banco v2.sql](https://github.com/user-attachments/files/25751960/script.popular.banco.v2.sql)
