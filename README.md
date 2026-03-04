@@ -77,13 +77,11 @@ Opcionalmente, você pode executar.
 **3. Configurar acesso ao banco**
 Verifique o arquivo: src/main/resources/application.yml
 
-Configuração utilizada no projeto:
 spring:
   datasource:
     url: jdbc:mysql://localhost:3306/campeonatosesportivosvolei
     username: root
     password: root
-
 
 
 [Script tabelas alterado.sql](https://github.com/user-attachments/files/25751950/Script.tabelas.alterado.sql)
