@@ -56,65 +56,35 @@ O levantamento de requisitos e primeiras definições do sistema podem ser consu
 
 ## Scripts do banco - Banco De Dados
 
-Banco de Dados
+### Banco de Dados
+O sistema utiliza **MySQL** como banco de dados relacional.
 
-O sistema utiliza MySQL como banco de dados relacional.
-
-Nome do banco:
-
+**Nome do banco:**
 campeonatosesportivosvolei
 
-Na pasta database estão disponíveis os scripts necessários:
 
-database/schema.sql   → criação das tabelas
-database/data.sql     → dados de exemplo (opcional)
-Como executar o projeto
-1. Clonar o repositório
-git clone https://github.com/SEU-USUARIO/SEU-REPOSITORIO.git
-2. Criar o banco de dados
+Na pasta `database` estão disponíveis os scripts necessários:
 
-No MySQL execute o script:
+- `database/script tabelas alterado.sql` → criação das tabelas  
+- `database/script popular banco.sql ` → dados de exemplo (opcional)
 
-database/schema.sql
+---
 
-Isso irá criar todas as tabelas necessárias para o sistema.
+**2. Criar o banco de dados**
+No MySQL execute o script: script tabelas alterado. Isso irá criar todas as tabelas necessárias para o sistema.
+Opcionalmente, você pode executar.
 
-Opcionalmente você pode executar:
-
-database/data.sql
-
-para inserir dados de exemplo.
-
-3. Configurar acesso ao banco
-
-Verifique o arquivo:
-
-src/main/resources/application.yml
+**3. Configurar acesso ao banco**
+Verifique o arquivo: src/main/resources/application.yml
 
 Configuração utilizada no projeto:
-
 spring:
   datasource:
     url: jdbc:mysql://localhost:3306/campeonatosesportivosvolei
     username: root
     password: root
 
-Caso necessário, ajuste conforme seu ambiente.
 
-4. Executar a aplicação
-
-Execute o projeto Spring Boot através da classe principal:
-
-GestaoCampeonatoApplication
-
-Ou via Maven:
-
-mvn spring-boot:run
-5. Acessar o sistema
-
-Após iniciar a aplicação, acesse:
-
-http://localhost:8080
 
 [Script tabelas alterado.sql](https://github.com/user-attachments/files/25751950/Script.tabelas.alterado.sql)
 [script popular banco v2.sql](https://github.com/user-attachments/files/25751960/script.popular.banco.v2.sql)
