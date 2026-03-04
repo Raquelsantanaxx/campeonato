@@ -23,32 +23,6 @@ Antes de executar, é necessário ter instalado:
 * **Maven**.
 * **MySQL 8+**.
 
-## 🗄 2. Criar o Banco de Dados
-
-No MySQL, execute:
-
-CREATE DATABASE campeonatosesportivosvolei;
-
-# Configurar o application.properties
-
-No arquivo:
-src/main/resources/application.properties
-
-coloque seu usuario e senha - recomendo suar o root root 
-spring.datasource.url=jdbc:mysql://localhost:3306/campeonatosesportivosvolei
-spring.datasource.username=SEU_USUARIO
-spring.datasource.password=SUA_SENHA
-
-spring.jpa.hibernate.ddl-auto=update
-spring.jpa.show-sql=true
-
-
-## Acessar o Sistema
-
-Após iniciar a aplicação, acessar:
-
-http://localhost:8080
-
 ## Tecnologias Utilizadas
 
 O projeto foi construído utilizando as seguintes tecnologias
@@ -80,7 +54,67 @@ O projeto foi construído utilizando as seguintes tecnologias
 O levantamento de requisitos e primeiras definições do sistema podem ser consultados no seguinte documento:
 [Requisitos V.2.pdf](https://github.com/user-attachments/files/25697719/Requisitos.V.2.pdf)
 
-## Scripts do banco 
+## Scripts do banco - Banco De Dados
+
+Banco de Dados
+
+O sistema utiliza MySQL como banco de dados relacional.
+
+Nome do banco:
+
+campeonatosesportivosvolei
+
+Na pasta database estão disponíveis os scripts necessários:
+
+database/schema.sql   → criação das tabelas
+database/data.sql     → dados de exemplo (opcional)
+Como executar o projeto
+1. Clonar o repositório
+git clone https://github.com/SEU-USUARIO/SEU-REPOSITORIO.git
+2. Criar o banco de dados
+
+No MySQL execute o script:
+
+database/schema.sql
+
+Isso irá criar todas as tabelas necessárias para o sistema.
+
+Opcionalmente você pode executar:
+
+database/data.sql
+
+para inserir dados de exemplo.
+
+3. Configurar acesso ao banco
+
+Verifique o arquivo:
+
+src/main/resources/application.yml
+
+Configuração utilizada no projeto:
+
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:3306/campeonatosesportivosvolei
+    username: root
+    password: root
+
+Caso necessário, ajuste conforme seu ambiente.
+
+4. Executar a aplicação
+
+Execute o projeto Spring Boot através da classe principal:
+
+GestaoCampeonatoApplication
+
+Ou via Maven:
+
+mvn spring-boot:run
+5. Acessar o sistema
+
+Após iniciar a aplicação, acesse:
+
+http://localhost:8080
 
 [Script tabelas alterado.sql](https://github.com/user-attachments/files/25751950/Script.tabelas.alterado.sql)
 [script popular banco v2.sql](https://github.com/user-attachments/files/25751960/script.popular.banco.v2.sql)
