@@ -22,32 +22,7 @@ Antes de executar, é necessário ter instalado:
 * **Java 17**.
 * **Maven**.
 * **MySQL 8+**.
-
-## 🗄 2. Criar o Banco de Dados
-
-No MySQL, execute:
-
-CREATE DATABASE campeonatosesportivosvolei;
-
-# Configurar o application.properties
-
-No arquivo:
-src/main/resources/application.properties
-
-coloque seu usuario e senha - recomendo suar o root root 
-spring.datasource.url=jdbc:mysql://localhost:3306/campeonatosesportivosvolei
-spring.datasource.username=SEU_USUARIO
-spring.datasource.password=SUA_SENHA
-
-spring.jpa.hibernate.ddl-auto=update
-spring.jpa.show-sql=true
-
-
-## Acessar o Sistema
-
-Após iniciar a aplicação, acessar:
-
-http://localhost:8080
+* **Springboot 3**.
 
 ## Tecnologias Utilizadas
 
@@ -79,3 +54,38 @@ O projeto foi construído utilizando as seguintes tecnologias
 ## Requisitos
 O levantamento de requisitos e primeiras definições do sistema podem ser consultados no seguinte documento:
 [Requisitos V.2.pdf](https://github.com/user-attachments/files/25697719/Requisitos.V.2.pdf)
+
+## Scripts do banco - Banco De Dados
+
+### Banco de Dados
+O sistema utiliza **MySQL** como banco de dados relacional.
+
+**Nome do banco:**
+campeonatosesportivosvolei
+
+
+Na pasta `database` estão disponíveis os scripts necessários:
+
+- `database/script tabelas alterado.sql` → criação das tabelas  
+- `database/script popular banco.sql ` → dados de exemplo (opcional)
+
+---
+
+**2. Criar o banco de dados**
+No MySQL execute o script: script tabelas alterado. Isso irá criar todas as tabelas necessárias para o sistema.
+Opcionalmente, você pode executar.
+
+**3. Configurar acesso ao banco**
+Verifique o arquivo: src/main/resources/application.yml
+
+<pre><code class="language-yaml">```
+spring:
+datasource:
+url: jdbc:mysql://localhost:3306/campeonatosesportivosvolei
+username: root
+password: root
+
+
+
+[script popular banco v2.sql](https://github.com/user-attachments/files/25752405/script.popular.banco.v2.sql)
+[Script tabelas alterado.sql](https://github.com/user-attachments/files/25752415/Script.tabelas.alterado.sql)
