@@ -77,7 +77,7 @@ Opcionalmente, você pode executar.
 **3. Configurar acesso ao banco**
 Verifique o arquivo: src/main/resources/application.yml
 
-<pre><code class="language-yaml">```yaml
+<pre><code class="language-yaml">```
 spring:
 datasource:
 url: jdbc:mysql://localhost:3306/campeonatosesportivosvolei
