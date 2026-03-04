@@ -85,5 +85,6 @@ username: root
 password: root
 
 
-[Script tabelas alterado.sql](https://github.com/user-attachments/files/25751950/Script.tabelas.alterado.sql)
-[script popular banco v2.sql](https://github.com/user-attachments/files/25751960/script.popular.banco.v2.sql)
+
+[script popular banco v2.sql](https://github.com/user-attachments/files/25752405/script.popular.banco.v2.sql)
+[Script tabelas alterado.sql](https://github.com/user-attachments/files/25752415/Script.tabelas.alterado.sql)
